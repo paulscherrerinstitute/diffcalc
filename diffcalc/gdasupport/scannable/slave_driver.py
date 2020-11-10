@@ -111,5 +111,5 @@ class NuDriverForWillmottHorizontalGeometry(SlaveScannableDriver):
                    cos(omegah) * cos(delta))
             nu = atan2(top, bot)                                         # (61)
 
-        print 'nu:', nu * TODEG
+        print('nu:', nu * TODEG)
         return nu * TODEG

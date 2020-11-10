@@ -8,7 +8,7 @@ def sim(scn, hkl):
     """sim hkl scn -- simulates moving scannable (not all)
     """
     try:
-        print scn.simulateMoveTo(hkl)
+        print(scn.simulateMoveTo(hkl))
     except AttributeError:
         raise TypeError(
             "The first argument does not support simulated moves")

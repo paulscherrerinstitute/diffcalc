@@ -162,10 +162,10 @@ class TestHkl(object):
         self.mockSixc.getName.return_value = 'sixc'
         self.mockSixc.getInputNames.return_value = ['alpha', 'delta', 'gamma',
                                                     'omega', 'chi', 'phi']
-        print self.hkl.simulateMoveTo((1.23, 0, 0))
+        print(self.hkl.simulateMoveTo((1.23, 0, 0)))
 
     def testDisp(self):
-        print self.hkl.__repr__()
+        print(self.hkl.__repr__())
 
 
 class TestHklReturningVirtualangles(TestHkl):

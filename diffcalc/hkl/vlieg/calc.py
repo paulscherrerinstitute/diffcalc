@@ -537,8 +537,8 @@ class VliegHklCalculator(HklCalculatorBase):
                 None, None, None, omega, chi, phi)
             R = OMEGA * CHI * PHI
             RtimesH_phi = R * H_phi
-            print ("R*H_phi=%s, Q_alpha=%s" %
-                   (R * H_phi.tolist(), Q_alpha.tolist()))
+            print(("R*H_phi=%s, Q_alpha=%s" %
+                   (R * H_phi.tolist(), Q_alpha.tolist())))
             return not differ(RtimesH_phi, Q_alpha, .0001)
 
         # Using Vlieg section 7.2
@@ -792,7 +792,7 @@ def _findOmegaAndChiToRotateHchiIntoQalpha(h_chi, q_alpha):
         A = -h_chi1 * cos(chi2) - h_chi3 * sin(chi2)
         eq2omega21, eq2omega22 = solve(A, h_chi2, q_alpha2)
 
-    except ValueError, e:
+    except ValueError as e:
         raise ValueError(
             str(e) + ":\nProblem in fixed-phi calculation for:\nh_chi: " +
             str(h_chi.tolist()) + " q_alpha: " + str(q_alpha.tolist()))
@@ -800,7 +800,7 @@ def _findOmegaAndChiToRotateHchiIntoQalpha(h_chi, q_alpha):
     # 2. Choose values of chi and omega that are solutions to equations 1 and 2
     solutions = []
     # a) Check the chi1 solutions
-    print "_findOmegaAndChiToRotateHchiIntoQalpha:"
+    print("_findOmegaAndChiToRotateHchiIntoQalpha:")
     if ne(eq1omega11, eq2omega11) or ne(eq1omega11, eq2omega12):
 #        print "1: eq1omega11, chi1 = ", eq1omega11, chi1
         solutions.append((eq1omega11, chi1))
@@ -835,13 +835,13 @@ def _findOmegaAndChiToRotateHchiIntoQalpha(h_chi, q_alpha):
     positive_chi_solutions = [sol for sol in solutions if sol[1] > 0]
 
     if len(positive_chi_solutions) == 0:
-        print "WARNING: A +ve chi solution was requested, but none were found."
-        print "         Returning a -ve one. Try the mapper"
+        print("WARNING: A +ve chi solution was requested, but none were found.")
+        print("         Returning a -ve one. Try the mapper")
         return solutions[0]
 
     if len(positive_chi_solutions) > 1:
-        print ("INFO: Multiple +ve chi solutions were found [(omega, chi) ...]"
-             " = " + str(positive_chi_solutions))
-        print "      Returning the first"
+        print(("INFO: Multiple +ve chi solutions were found [(omega, chi) ...]"
+             " = " + str(positive_chi_solutions)))
+        print("      Returning the first")
 
     return positive_chi_solutions[0]

@@ -39,13 +39,13 @@ class YouStateEncoder(UBCalcStateEncoder):
         try:
             cons_dict = state['constraints']
             from diffcalc.hkl.you.hkl import constraint_manager
-            for cons_name, val in cons_dict.iteritems():
+            for cons_name, val in cons_dict.items():
                 try:
                     constraint_manager.constrain(cons_name)
                     if val is not None:
                         constraint_manager.set_constraint(cons_name, val * TODEG)
                 except DiffcalcException:
-                    print 'WARNING: Ignoring constraint %s' % cons_name
+                    print('WARNING: Ignoring constraint %s' % cons_name)
         except KeyError:
             pass
 

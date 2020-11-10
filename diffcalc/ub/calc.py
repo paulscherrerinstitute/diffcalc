@@ -186,17 +186,17 @@ class UBCalculation:
         elif self._state.is_okay_to_autocalculate_ub:
             try:
                 self.calculate_UB(self._state.or0, self._state.or1)
-            except Exception, e:
-                print e
+            except Exception as e:
+                print(e)
         else:
-            print "Warning: No UB calculation loaded."
+            print("Warning: No UB calculation loaded.")
 
     def save(self):
         """Save current UB matrix calculation."""
         if self._state.name:
             self.saveas(self._state.name)
         else:
-            print "Warning: No UB calculation defined."
+            print("Warning: No UB calculation defined.")
 
     def saveas(self, name):
         """Save current UB matrix calculation.
@@ -372,7 +372,7 @@ class UBCalculation:
                 raise TypeError("Invalid number of input parameters to set unit lattice.")
             fullform = (system,) + shortform
         else:
-            if not isinstance(shortform[0], basestring):
+            if not isinstance(shortform[0], str):
                 raise TypeError("Invalid unit cell parameters specified.")
             fullform = shortform
         if self._state.name is None:
@@ -437,7 +437,7 @@ class UBCalculation:
         self.save()
         
     def print_reference(self):
-        print '\n'.join(self._state.reference.repr_lines(self.is_ub_calculated(), WIDTH=9, conv=self._tobj))
+        print('\n'.join(self._state.reference.repr_lines(self.is_ub_calculated(), WIDTH=9, conv=self._tobj)))
 
 
 ### Surface vector ###
@@ -460,7 +460,7 @@ class UBCalculation:
         self.save()
         
     def print_surface(self):
-        print '\n'.join(self._state.surface.repr_lines(self.is_ub_calculated(), WIDTH=9, conv=self._tobj))
+        print('\n'.join(self._state.surface.repr_lines(self.is_ub_calculated(), WIDTH=9, conv=self._tobj)))
 
 ### Reflections ###
 
@@ -639,9 +639,9 @@ class UBCalculation:
                    "Use 'calcub' to explicitly recalculate it.")
         else:  # okay to autocalculate
             if self._UB is None:
-                print "Calculating UB matrix."
+                print("Calculating UB matrix.")
             else:
-                print "Recalculating UB matrix."
+                print("Recalculating UB matrix.")
             or12 = self.get_ub_references()
             self.calculate_UB(*or12)
 
@@ -850,9 +850,9 @@ class UBCalculation:
             raise  ValueError("Expects 3*3 matrix")
 
         if self._UB is None:
-            print "Calculating UB matrix."
+            print("Calculating UB matrix.")
         else:
-            print "Recalculating UB matrix."
+            print("Recalculating UB matrix.")
         
         if conv:
             self._U = self._tobj.transform(m)
@@ -1070,9 +1070,9 @@ class UBCalculation:
         rotation_angle = acos(cos_rotation_angle)
 
         uvw = rotation_axis.T.tolist()[0]  # TODO: cleanup
-        print "resulting U angle: %.5f deg" % (rotation_angle * TODEG)
+        print("resulting U angle: %.5f deg" % (rotation_angle * TODEG))
         u_repr = (', '.join(['% .5f' % el for el in uvw]))
-        print "resulting U axis direction: [%s]" % u_repr
+        print("resulting U axis direction: [%s]" % u_repr)
 
         u, v, w = uvw
         rcos = cos(rotation_angle)
@@ -1089,9 +1089,9 @@ class UBCalculation:
         m[2][2] = rcos + w * w * (1 - rcos)
 
         if self._UB is None:
-            print "Calculating UB matrix from the first reflection only."
+            print("Calculating UB matrix from the first reflection only.")
         else:
-            print "Recalculating UB matrix from the first reflection only."
+            print("Recalculating UB matrix from the first reflection only.")
         print ("NOTE: A new UB matrix will not be automatically calculated "
                "when the orientation reflections are modified.")
 
@@ -1118,9 +1118,9 @@ class UBCalculation:
                     refl_list.append((hkl_vals, pos, en,))
                 except IndexError:
                     raise DiffcalcException("Cannot read reflection data for index %s" % str(idx))
-            print "Fitting crystal lattice parameters..."
+            print("Fitting crystal lattice parameters...")
             new_lattice = fit_crystal(self._state.crystal, refl_list)
-            print "Fitting orientation matrix..."
+            print("Fitting orientation matrix...")
             new_u = fit_u_matrix(self._U, new_lattice, refl_list)
             uc_params = (self._state.crystal.getLattice()[0],) + new_lattice.getLattice()[1:]
         return new_u, uc_params

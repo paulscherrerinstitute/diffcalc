@@ -9,11 +9,12 @@ import diffcalc.hkl.vlieg.calc
 
 # reload to aid testing only
 import diffcalc.ub.ub as _ub
-reload(_ub)
+import importlib
+importlib.reload(_ub)
 from diffcalc import hardware as _hardware
 #reload(_hardware)
 import diffcalc.hkl.vlieg.hkl as _hkl
-reload(_hkl)
+importlib.reload(_hkl)
 
 from diffcalc.ub.ub import *  # @UnusedWildImport
 from diffcalc.hardware import *  # @UnusedWildImport

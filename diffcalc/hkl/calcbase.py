@@ -82,7 +82,7 @@ class HklCalculatorBase(object):
         # to degrees:
         pos.changeToDegrees()
         
-        for key, val in virtualAngles.items():
+        for key, val in list(virtualAngles.items()):
             if val is not None:
                 virtualAngles[key] = val * TODEG
 
@@ -103,13 +103,13 @@ class HklCalculatorBase(object):
             if self.raiseExceptionsIfAnglesDoNotMapBackToHkl:
                 raise DiffcalcException(s)
             else:
-                print s
+                print(s)
 
     def _verify_virtual_angles(self, h, k, l, wavelength, pos, virtualAngles):
         # Check that the virtual angles calculated/fixed during the hklToAngles
     # those read back from pos using anglesToVirtualAngles
         virtualAnglesReadback = self.anglesToVirtualAngles(pos, wavelength)
-        for key, val in virtualAngles.items():
+        for key, val in list(virtualAngles.items()):
             if val != None: # Some values calculated in some mode_selector
                 r = virtualAnglesReadback[key]
                 if ((differ(val, r, .00001) and differ(val, r + 360, .00001) and differ(val, r - 360, .00001))):
@@ -122,7 +122,7 @@ class HklCalculatorBase(object):
                     if self.raiseExceptionsIfAnglesDoNotMapBackToHkl:
                         raise DiffcalcException(s)
                     else:
-                        print s
+                        print(s)
         
         return virtualAnglesReadback
 

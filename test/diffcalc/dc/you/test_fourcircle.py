@@ -1,4 +1,5 @@
 from math import pi
+import importlib
 
 try:
     from numpy import matrix
@@ -31,7 +32,7 @@ def setup_module():
     settings.reference_vector = matrix('0; 0; 1')
     
     from diffcalc.dc import dcyou as dc
-    reload(dc)
+    importlib.reload(dc)
     dc.newub('test')
     dc.setlat('cubic', 1, 1, 1, 90, 90, 90)
     dc.addref([1, 0, 0], [60, 30, 0, 0], en, 'ref1')

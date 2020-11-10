@@ -33,7 +33,7 @@ TORAD = pi / 180
 def filter_dict(d, keys):
     """Return a copy of d containing only keys that are in keys"""
     ##return {k: d[k] for k in keys} # requires Python 2.6
-    return dict((k, d[k]) for k in keys if k in d.keys())
+    return dict((k, d[k]) for k in keys if k in list(d.keys()))
 
 
 det_constraints = ('delta', NUNAME, 'qaz', 'naz')
@@ -137,14 +137,14 @@ class YouConstraintManager(object):
     @property
     def constrained_names(self):
         """ordered tuple of constained circles"""
-        names = self.all.keys()
+        names = list(self.all.keys())
         names.sort(key=lambda name: list(all_constraints).index(name))
         return tuple(names)
 
     @property
     def available_names(self):
         """ordered tuple of fixed circles"""
-        names = [name for name in self.all.keys() if not self.is_constraint_fixed(name)]
+        names = [name for name in list(self.all.keys()) if not self.is_constraint_fixed(name)]
         names.sort(key=lambda name: list(all_constraints).index(name))
         return tuple(names)
 
@@ -309,7 +309,7 @@ class YouConstraintManager(object):
             self._constrained[name] = None
             return 'Naz constraint replaced.'
         elif self.detector:
-            constrained_name = self.detector.keys()[0]
+            constrained_name = list(self.detector.keys())[0]
             del self._constrained[constrained_name]
             self._constrained[name] = None
             return'%s constraint replaced.' % constrained_name.capitalize()
@@ -332,7 +332,7 @@ class YouConstraintManager(object):
 
     def _constrain_reference(self, name):
         if self.reference:
-            constrained_name = self.reference.keys()[0]
+            constrained_name = list(self.reference.keys())[0]
         elif len(self._constrained) < 3:
             constrained_name = None
         elif len(self.available_names) == 1:
@@ -356,7 +356,7 @@ class YouConstraintManager(object):
         elif len(self.sample) == 1:
             # (detector and reference constraints set)
             # it is clear which sample constraint to remove
-            constrained_name = self.sample.keys()[0]
+            constrained_name = list(self.sample.keys())[0]
             if self.is_constraint_fixed(constrained_name):
                 raise self._could_not_constrain_exception(name)
         else:
@@ -385,7 +385,7 @@ class YouConstraintManager(object):
             raise DiffcalcException(
                 'Could not set %(ext_name)s. This is not an available '
                 'constraint.' % locals())
-        elif name not in self.all.keys():
+        elif name not in list(self.all.keys()):
             raise DiffcalcException(
                 'Could not set %(ext_name)s. This is not currently '
                 'constrained.' % locals())

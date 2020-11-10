@@ -67,7 +67,7 @@ settings.energy_scannable_multiplier_to_get_KeV = ESMTGKeV
 from diffcalc.gdasupport.you import *  # @UnusedWildImport
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
  
 ### Load the last ub calculation used
@@ -86,7 +86,7 @@ def setLimitsAndCuts(delta,eta,chi,phi):
         setmax(chi, 94.5)
         setmin(phi, 0)
         setmax(phi, 360.0)
-    print "Current hardware limits set to:"
+    print("Current hardware limits set to:")
     hardware()
 
 if not GDA:
@@ -126,36 +126,36 @@ if GDA:
     def simdc():
         ''' switch to use dummy motors in diffcalc
         '''
-        print "Stop real motors"
+        print("Stop real motors")
         stopMotors(tth,th,chi,phi)
         
         global SIM_MODE
         SIM_MODE=True
         import __main__
         __main__.en=Dummy("en")
-        print "Set energy to 12398.425 eV in simulation mode!"
+        print("Set energy to 12398.425 eV in simulation mode!")
         __main__.en(12398.425) #1 Angstrom wavelength @UndefinedVariable
-        print "Switch to simulation motors"
+        print("Switch to simulation motors")
         swithMotors(simtth,simalpha,simth,simchi,phi)
         setLimitsAndCuts(simtth,simalpha,simth,simchi,phi)
         
     def realdc():
         ''' switch to use real motors in diffcalc
         '''
-        print "Stop simulation motors"
+        print("Stop simulation motors")
         stopMotors(simtth,simalpha,simth,simchi,phi)
         
         global SIM_MODE
         SIM_MODE=False
         import __main__
-        print "Set energy to current beamline energy in real mode!"
+        print("Set energy to current beamline energy in real mode!")
         __main__.en=pgm_energy
-        print "Switch to real motors"
+        print("Switch to real motors")
         swithMotors(tth,th,chi,phi)
         setLimitsAndCuts(tth,th,chi,phi)
      
     from gda.jython.commands.GeneralCommands import alias  # @UnresolvedImport
-    print "Created commands: 'simdc' and 'realdc' to switch between real and simulated motors."
+    print("Created commands: 'simdc' and 'realdc' to switch between real and simulated motors.")
     alias("simdc")
     alias("realdc")
 
@@ -165,7 +165,7 @@ hkl_point = Hkl('hkl_point', _fourc, DiffractometerYouCalculator(_hw, _geometry)
 
 
 def useccd():
-    print '- setting hkl ---> hkl_ccd'
+    print('- setting hkl ---> hkl_ccd')
     global settings
     settings.hardware = _area_hw
     settings.energy_scannable = pgm_energy
@@ -190,7 +190,7 @@ def useccd():
         __main__.ct = SimulatedCrystalCounter('ct', __main__.fourc, settings.geometry, __main__.wl)  # @UndefinedVariable
 
 def usepoint():
-    print '- setting hkl ---> hkl_point'
+    print('- setting hkl ---> hkl_point')
     global settings
     settings.hardware = _hw
     settings.energy_scannable = pgm_energy
@@ -216,8 +216,8 @@ def usepoint():
 
 def usesim():
     # sample chamber
-    print '- setting hkl ---> hkl_sim'
-    print '-          en ---> simenergy'
+    print('- setting hkl ---> hkl_sim')
+    print('-          en ---> simenergy')
     global settings
     settings.hardware = _hw_sim
     settings.energy_scannable = simenergy

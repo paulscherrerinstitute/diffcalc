@@ -70,17 +70,17 @@ def newub(name=None):
         # interactive
         name = promptForInput('calculation name')
         while not name:
-            print 'Please provide non-empty UB calculation name'
+            print('Please provide non-empty UB calculation name')
             name = promptForInput('calculation name')
         try:
             ubcalc.start_new(name)
         except IOError:
             raise DiffcalcException('Cannot create UB calculation persistence file with name "%s"' % name)
         setlat()
-    elif isinstance(name, basestring):
+    elif isinstance(name, str):
         if name in ubcalc._persister.list():
-            print ("No UB calculation started: There is already a calculation "
-                    "called: " + name)
+            print(("No UB calculation started: There is already a calculation "
+                    "called: " + name))
             reply = promptForInput("Load the existing UB calculation '%s'? " % name, 'y')
             if reply in ('y', 'Y', 'yes'):
                 loadub(name)
@@ -102,7 +102,7 @@ def newub(name=None):
 def loadub(name_or_num):
     """loadub 'name' | num -- load an existing ub calculation
     """
-    if isinstance(name_or_num, basestring):
+    if isinstance(name_or_num, str):
         ubcalc.load(name_or_num)
     else:
         ubcalc.load(ubcalc.listub()[int(name_or_num)])
@@ -113,16 +113,16 @@ def lastub():
     """
     try:
         lastub_name = ubcalc.listub()[0]
-        print "Loading ub calculation: '%s'" % lastub_name
+        print("Loading ub calculation: '%s'" % lastub_name)
         loadub(0)
     except IndexError:
-        print "WARNING: There is no record of the last ub calculation used"
+        print("WARNING: There is no record of the last ub calculation used")
 
 @command
 def rmub(name_or_num):
     """rmub 'name'|num -- remove existing ub calculation
     """
-    if isinstance(name_or_num, basestring):
+    if isinstance(name_or_num, str):
         ubcalc.remove(name_or_num)
     else:
         ubcalc.remove(ubcalc.listub()[int(name_or_num)])
@@ -132,10 +132,10 @@ def listub():
     """listub -- list the ub calculations available to load.
     """
     if hasattr(ubcalc._persister, 'description'):
-        print "UB calculations in: " + ubcalc._persister.description
+        print("UB calculations in: " + ubcalc._persister.description)
     else:
-        print "UB calculations:"
-    print
+        print("UB calculations:")
+    print()
     ubnames = ubcalc.listub()
     # TODO: whole mechanism of making two calls is messy
     try:
@@ -149,14 +149,14 @@ def listub():
     fmt_names = ' '.join(["%3i) ",
                           "%%-%is " % wdt_names,
                           "%s"])
-    for n, name, data in zip(range(len(ubnames)), ubnames, ub_metadata):
-        print fmt_names % (n, name, data)
+    for n, name, data in zip(list(range(len(ubnames))), ubnames, ub_metadata):
+        print(fmt_names % (n, name, data))
 
 @command
 def saveubas(name):
     """saveubas 'name' -- save the ub calculation with a new name
     """
-    if isinstance(name, basestring):
+    if isinstance(name, str):
         # just trying might cause confusion here
         ubcalc.saveas(name)
     else:
@@ -168,7 +168,7 @@ def ub():
     """
     #wavelength = float(hardware.get_wavelength())
     #energy = float(hardware.get_energy())
-    print ubcalc.__str__()
+    print(ubcalc.__str__())
 
 ### UB lattice ###
 
@@ -206,12 +206,12 @@ def setlat(name=None, *args):
         while system is None:
             system_fmt = "\n".join(["crystal system",] + 
                                    ["%d) %s" % (k, v) 
-                                    for (k, v) in systen_dict.items()] +
+                                    for (k, v) in list(systen_dict.items())] +
                                    ['',])
             system = promptForNumber(system_fmt, 1)
-            if system not in systen_dict.keys():
-                print "Invalid crystal system index selection.\n"
-                print "Please select vale between 1 and 7."
+            if system not in list(systen_dict.keys()):
+                print("Invalid crystal system index selection.\n")
+                print("Please select vale between 1 and 7.")
                 system = None
         a = promptForNumber('    a', 1)
         args = (a,)
@@ -231,7 +231,7 @@ def setlat(name=None, *args):
             gamma = promptForNumber('gamma', 90)
             args += (gamma,)
         args = (systen_dict[system],) + args
-    elif not isinstance(name, basestring):
+    elif not isinstance(name, str):
         raise TypeError("Invalid crystal name.")
     ubcalc.set_lattice(name, *args)
 
@@ -272,8 +272,8 @@ def sigtau(sigma=None, tau=None):
         chi = settings.hardware.get_position_by_name('chi')  # @UndefinedVariable
         phi = settings.hardware.get_position_by_name('phi')  # @UndefinedVariable
         _sigma, _tau = ubcalc.sigma, ubcalc.tau
-        print "sigma, tau = %f, %f" % (_sigma, _tau)
-        print "  chi, phi = %f, %f" % (chi, phi)
+        print("sigma, tau = %f, %f" % (_sigma, _tau))
+        print("  chi, phi = %f, %f" % (chi, phi))
         sigma = promptForInput("sigma", -chi)
         tau = promptForInput("  tau", -phi)
         ubcalc.sigma = sigma
@@ -336,9 +336,9 @@ def _to_column_vector_triple(o):
 def showref():
     """showref -- shows full reflection list"""
     if ubcalc._state.reflist:
-        print '\n'.join(ubcalc.str_lines_refl())
+        print('\n'.join(ubcalc.str_lines_refl()))
     else:
-        print "<<< No reflections stored >>>"
+        print("<<< No reflections stored >>>")
 
 @command
 def addref(*args):
@@ -399,7 +399,7 @@ def addref(*args):
             energy = settings.hardware.get_energy()  # @UndefinedVariable
         if len(args) == 1:
             tag = args.pop(0)
-            if not isinstance(tag, basestring):
+            if not isinstance(tag, str):
                 raise TypeError("Tag value must be a string")
             if tag == '':
                 tag = None
@@ -485,9 +485,9 @@ def swapref(idx1=None, idx2=None):
 def showorient():
     """showorient -- shows full list of crystal orientations"""
     if ubcalc._state.orientlist:
-        print '\n'.join(ubcalc.str_lines_orient())
+        print('\n'.join(ubcalc.str_lines_orient()))
     else:
-        print "<<< No crystal orientations stored >>>"
+        print("<<< No crystal orientations stored >>>")
 
 @command
 def addorient(*args):
@@ -546,7 +546,7 @@ def addorient(*args):
                 settings.hardware.get_position())  # @UndefinedVariable
         if len(args) == 1:
             tag = args.pop(0)
-            if not isinstance(tag, basestring):
+            if not isinstance(tag, str):
                 raise TypeError("Tag value must be a string.")
             if tag == '':
                 tag = None
@@ -713,7 +713,7 @@ def checkub():
         s += ("% 2d % 6.4f % 4.2f % 4.2f % 4.2f   % 6.4f  % 6.4f  "
               "% 6.4f  %6s\n" % (n + 1, energy, hklguess[0],
               hklguess[1], hklguess[2], h, k, l, tag))
-    print s
+    print(s)
 
 @command
 def refineub(*args):
@@ -764,23 +764,23 @@ def refineub(*args):
         lines.append(" " * 12 +
                          "% 9.5f % 9.5f % 9.5f" % (lat[4:]))
         lines.append("")
-        print '\n'.join(lines)
+        print('\n'.join(lines))
         reply = promptForInput('Update crystal settings?', 'y')
         if reply in ('y', 'Y', 'yes'):
             ubcalc.set_lattice(*lat)
     else:
-        print "No unit cell mismatch detected"
+        print("No unit cell mismatch detected")
     mc_angle, mc_axis = ubcalc.calc_miscut(h, k, l, pos)
     if mc_angle:
         lines = ["Miscut parameters:",]
         lines.append("      angle:".ljust(9) + "% 9.5f" % mc_angle)
         lines.append("       axis:".ljust(9) + "% 9.5f % 9.5f % 9.5f" % tuple(mc_axis))
-        print '\n'.join(lines)
+        print('\n'.join(lines))
         reply = promptForInput('Apply miscut parameters?', 'y')
         if reply in ('y', 'Y', 'yes'):
             ubcalc.set_miscut(mc_axis, -mc_angle * TORAD, True)
     else:
-        print "No miscut detected for the given settings"
+        print("No miscut detected for the given settings")
         ubcalc.set_miscut(None, 0, True)
 
 @command
@@ -795,14 +795,14 @@ def fitub(*args):
     lines.append(" " * 12 +
                      "% 9.5f % 9.5f % 9.5f" % (new_lattice[4:]))
     lines.append("")
-    print '\n'.join(lines)
+    print('\n'.join(lines))
     reply = promptForInput('Update crystal settings?', 'y')
     if reply in ('y', 'Y', 'yes'):
         ubcalc.set_lattice(new_lattice[0], _system, *new_lattice[1:])
 
     new_ubmatrix = new_umatrix * ubcalc._state.crystal.B
     lines = ubcalc.str_lines_u(new_umatrix) + ubcalc.str_lines_ub_angle_and_axis(new_ubmatrix)
-    print '\n' + '\n'.join(lines)
+    print('\n' + '\n'.join(lines))
     reply = promptForInput('Update U matrix?', 'y')
     if reply in ('y', 'Y', 'yes'):
         ubcalc.set_U_manually(new_umatrix, False)

@@ -19,6 +19,7 @@
 import unittest
 from diffcalc import settings
 import pytest
+import importlib
 
 try:
     from numpy import matrix
@@ -78,7 +79,7 @@ class BaseTestDiffractionCalculatorWithData(object):
         settings.geometry = self.geometry
         settings.ubcalc_persister = UbCalculationNonPersister()
         from diffcalc.dc import dcvlieg as dc
-        reload(dc)
+        importlib.reload(dc)
         self.dc = dc
         self.setSessionAndCalculation()
         prepareRawInput([])
@@ -246,9 +247,9 @@ class BaseTestDiffractionCalculatorWithData(object):
         self.dc.addref(
             [r.h, r.k, r.l], r.pos.totuple(), r.energy, r.tag)
         self.dc.calcub()
-        print "*** checkub ***"
-        print self.dc.checkub()
-        print "***************"
+        print("*** checkub ***")
+        print(self.dc.checkub())
+        print("***************")
 
 
 class TestDiffractionCalculatorHklWithDataSess2Calc0(
@@ -280,7 +281,7 @@ class TestSixcBase(object):
         settings.geometry = geometryClass()
         settings.ubcalc_persister = UbCalculationNonPersister()
         from diffcalc.dc import dcvlieg as dc
-        reload(dc)
+        importlib.reload(dc)
         self.dc = dc
         
 
@@ -302,7 +303,7 @@ class TestFourcBase(object):
         settings.ubcalc_persister = UbCalculationNonPersister()
 
         from diffcalc.dc import dcvlieg as dc
-        reload(dc)
+        importlib.reload(dc)
         self.dc = dc
         
         self.fourc.diffcalc = self.dc
@@ -349,8 +350,8 @@ class SixCircleGammaOnArmTest(TestSixcBase):
         self.mode(1)
         self.hkl([.7, .9, 1.3])
         aneq_((0., 27.3557, 0., 13.6779, 37.7746, 53.9654), self.sixc(), 4)
-        print self.hkl
-        print self.hklverbose
+        print(self.hkl)
+        print(self.hklverbose)
 
     def test2(self):
         self.mode(1, alpha=5, gamma=0)
@@ -509,10 +510,10 @@ class SixcGammaOnBaseTest(TestSixcBase):
 
     def testToFigureOut101and011(self):
         self.hkl([1, 0, 1])
-        print "101: ", self.sixc()
+        print("101: ", self.sixc())
         self.hkl([0, 1, 1])
-        print "011: ", self.sixc()
-        print "**"
+        print("011: ", self.sixc())
+        print("**")
 
     def testOrientation(self):
         self.dc.newub('cubic')
@@ -529,11 +530,11 @@ class SixcGammaOnBaseTest(TestSixcBase):
         mneq_(res, des, 4)
 #         print "***"
 #         self.dc.dc()
-        print "***"
+        print("***")
         self.dc.showref()
-        print "***"
+        print("***")
         self.dc.hklmode()
-        print "***"
+        print("***")
 
 
 class FiveCircleTest(object):
@@ -548,7 +549,7 @@ class FiveCircleTest(object):
         settings.geometry = Fivec()
         settings.ubcalc_persister = UbCalculationNonPersister()
         from diffcalc.dc import dcvlieg as dc
-        reload(dc)
+        importlib.reload(dc)
         self.dc = dc
         
         self.fivec.diffcalc = self.dc

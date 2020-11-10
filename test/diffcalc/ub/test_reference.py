@@ -40,11 +40,11 @@ class TestYouReference():
         assert_2darray_almost_equal(self.reference.n_phi.tolist(), matrix('0; 0; 1').tolist())
         
     def test__str__with_phi_configured(self):
-        print self.reference
+        print(self.reference)
         
     def test__str__with_hkl_configured(self):
         self.reference.n_hkl_configured = matrix('0; 1; 1')
-        print self.reference
+        print(self.reference)
         
     def test_n_phi_from_hkl_with_unity_matrix_001(self):
         self.get_UB.return_value = matrix('1 0 0; 0 1 0; 0 0 1')

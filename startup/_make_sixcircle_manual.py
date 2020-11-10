@@ -4,7 +4,7 @@ from startup._common_imports import *
 diffcalc.util.COLOURISE_TERMINAL_OUTPUT = False
 
 ### Create dummy scannables ###
-print "Dummy scannables: sixc(mu, delta, gam, eta, chi, phi) and en"
+print("Dummy scannables: sixc(mu, delta, gam, eta, chi, phi) and en")
 mu = Dummy('mu')
 delta = Dummy('delta')
 gam = Dummy('gam')
@@ -41,4 +41,4 @@ MANUALS_TO_MAKE = [
     os.path.join(
         DIFFCALC_ROOT, 'README_template.rst')]
 
-print 'MANUALS_TO_MAKE: ', MANUALS_TO_MAKE
+print('MANUALS_TO_MAKE: ', MANUALS_TO_MAKE)

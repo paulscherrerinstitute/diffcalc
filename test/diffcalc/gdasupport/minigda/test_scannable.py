@@ -37,7 +37,7 @@ class TestScannable(object):
 
     def testSomethingUnrelated(self):
         a = SingleFieldDummyScannable('a')
-        print isinstance(a, Scannable)
+        print(isinstance(a, Scannable))
 
 
 def createDummyAxes(names):

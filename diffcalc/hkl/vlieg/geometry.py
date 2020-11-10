@@ -190,7 +190,7 @@ class VliegGeometry(object):
         return name in self.supported_mode_groups
 
     def parameter_fixed(self, name):  # parameter_fixed
-        return name in self.fixed_parameters.keys()
+        return name in list(self.fixed_parameters.keys())
 
 
 class SixCircleGammaOnArmGeometry(VliegGeometry):
@@ -435,12 +435,12 @@ def gammaOnBaseToArm(deltaB, gammaB, alpha):
         deltaA, gammaA = deltaA1, gammaA1
     elif solvesEq8(alpha, deltaA2, gammaA1, deltaB, gammaB):
         deltaA, gammaA = deltaA2, gammaA1
-        print "gammaOnBaseToArm choosing 2nd delta root (to internal)"
+        print("gammaOnBaseToArm choosing 2nd delta root (to internal)")
     elif solvesEq8(alpha, deltaA1, gammaA2, deltaB, gammaB):
-        print "gammaOnBaseToArm choosing 2nd gamma root (to internal)"
+        print("gammaOnBaseToArm choosing 2nd gamma root (to internal)")
         deltaA, gammaA = deltaA1, gammaA2
     elif solvesEq8(alpha, deltaA2, gammaA2, deltaB, gammaB):
-        print "gammaOnBaseToArm choosing 2nd delta root and 2nd gamma root"
+        print("gammaOnBaseToArm choosing 2nd delta root and 2nd gamma root")
         deltaA, gammaA = deltaA2, gammaA2
     else:
         raise RuntimeError(
@@ -507,14 +507,14 @@ def gammaOnArmToBase(deltaA, gammaA, alpha):
     elif (solvesEq8(alpha, deltaA, gammaA, deltaB2, gammaB1) and
           0 <= gammaB1 <= pi):
         deltaB, gammaB = deltaB2, gammaB1
-        print "gammaOnArmToBase choosing 2nd delta root (to physical)"
+        print("gammaOnArmToBase choosing 2nd delta root (to physical)")
     elif (solvesEq8(alpha, deltaA, gammaA, deltaB1, gammaB2) and
           0 <= gammaB2 <= pi):
-        print "gammaOnArmToBase choosing 2nd gamma root (to physical)"
+        print("gammaOnArmToBase choosing 2nd gamma root (to physical)")
         deltaB, gammaB = deltaB1, gammaB2
     elif (solvesEq8(alpha, deltaA, gammaA, deltaB2, gammaB2)
           and 0 <= gammaB2 <= pi):
-        print "gammaOnArmToBase choosing 2nd delta root and 2nd gamma root"
+        print("gammaOnArmToBase choosing 2nd delta root and 2nd gamma root")
         deltaB, gammaB = deltaB2, gammaB2
     else:
         raise RuntimeError(

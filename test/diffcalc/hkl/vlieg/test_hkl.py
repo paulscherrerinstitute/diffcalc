@@ -28,6 +28,7 @@ from diffcalc.hkl.vlieg.calc import VliegHklCalculator
 from diffcalc.ub.calc import UBCalculation
 from diffcalc.ub.persistence import UbCalculationNonPersister
 import pytest
+import importlib
 
 try:
     from gdascripts.pd.dummy_pds import DummyPD  # @UnusedImport
@@ -53,7 +54,7 @@ class TestHklCommands(object):
         settings.ubcalc_persister = UbCalculationNonPersister()
         
         from diffcalc.hkl.vlieg import hkl
-        reload(hkl)
+        importlib.reload(hkl)
         hkl.hklcalc = self.hklcalc
         self.hkl = hkl
         prepareRawInput([])
@@ -63,8 +64,8 @@ class TestHklCommands(object):
             self.hkl.hklmode(1, 2)
         with pytest.raises(ValueError):
             self.hkl.hklmode('unwanted_string')
-        print self.hkl.hklmode()
-        print self.hkl.hklmode(1)
+        print(self.hkl.hklmode())
+        print(self.hkl.hklmode(1))
 
     def testSetWithString(self):
         self.hkl.setpar()

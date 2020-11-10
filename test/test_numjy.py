@@ -62,7 +62,7 @@ class _TestNumpyMatrix():
     def test_2dslice(self):
         m = self.m('0 1; 10 11')
         eq_(m[0, 0], 00)
-        eq_(m[0, 1], 01)
+        eq_(m[0, 1], 0o1)
         eq_(m[1, 0], 10)
         eq_(m[1, 1], 11)
 
@@ -218,7 +218,7 @@ if __NUMJY_AVAILABLE__:
                 '[[1.234  2.0]\n [3.1  4.0]]')
 
         def test__repr__(self):
-            print repr(self.m('1. 2.; 3. 4.'))
+            print(repr(self.m('1. 2.; 3. 4.')))
             eq_(repr(self.m('1. 2.; 3. 4.')),
                 'matrix([[1.0  2.0]\n        [3.0  4.0]])')
 

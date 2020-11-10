@@ -298,7 +298,7 @@ def getInputWithDefault(prompt, default=""):
     else:
         prompt = str(prompt) + ': '
 
-    rawresult = raw_input(prompt)
+    rawresult = input(prompt)
 
     # Return default if no input provided
     if rawresult == "":
@@ -327,7 +327,7 @@ class MockRawInput(object):
         toReturn = self.toReturnList.pop(0)
         if type(toReturn) != str:
             raise TypeError
-        print prompt + toReturn
+        print(prompt + toReturn)
         return toReturn
 
 
@@ -387,11 +387,11 @@ def call_command(f, args):
         return f(*args)
     try:
         return f(*args)
-    except TypeError, e:
+    except TypeError as e:
         # NOTE: TypeErrors resulting from bugs in the core code will be
         # erroneously caught here! TODO: check depth of TypeError stack
         raise TypeError(e.message + '\n\nUSAGE:\n' + f.__doc__)
-    except DiffcalcException, e:
+    except DiffcalcException as e:
         # TODO: log and create a new one to shorten stack trace for user
         raise DiffcalcException(e.message)
 

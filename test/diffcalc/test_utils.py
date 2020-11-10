@@ -36,27 +36,27 @@ class TestUtils(object):
 
     def testMockRawInput(self):
         raw_input = MockRawInput('a')  # @ReservedAssignment
-        assert raw_input('?') == 'a'
+        assert input('?') == 'a'
 
         raw_input = MockRawInput(['a', '1234', '1 2 3'])  # @ReservedAssignment
-        assert raw_input('?') == 'a'
-        assert raw_input('?') == '1234'
-        assert raw_input('?') == '1 2 3'
+        assert input('?') == 'a'
+        assert input('?') == '1234'
+        assert input('?') == '1 2 3'
         with pytest.raises(IndexError):
-            raw_input('?')
+            input('?')
 
         raw_input = MockRawInput(1)  # @ReservedAssignment
         with pytest.raises(TypeError):
-            raw_input('?')
+            input('?')
 
     def testGetInputWithDefaultWithStrings(self):
         diffcalc.util.raw_input = MockRawInput('reply')
-        print">>>"
+        print(">>>")
         assert getInputWithDefault('enter a thing', 'default') == 'reply'
-        print">>>"
+        print(">>>")
         diffcalc.util.raw_input = MockRawInput('')
         assert getInputWithDefault('enter a thing', 'default') == 'default'
-        print">>>"
+        print(">>>")
         diffcalc.util.raw_input = MockRawInput('1.23 1 a')
         assert getInputWithDefault('enter a thing', 'default') == '1.23 1 a'
 

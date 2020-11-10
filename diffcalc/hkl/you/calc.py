@@ -143,10 +143,10 @@ def _tidy_degenerate_solutions(pos, constraints):
             pos.eta = desired_eta
             pos.phi -= eta_diff
             if PRINT_DEGENERATE:
-                print ('DEGENERATE: with chi=0, phi and eta are colinear:'
+                print(('DEGENERATE: with chi=0, phi and eta are colinear:'
                        'choosing eta = delta/2 by adding % 7.3f to eta and '
-                       'removing it from phi. (mu=%s=0 only)' % (eta_diff * TODEG, NUNAME))
-                print '            original:', original
+                       'removing it from phi. (mu=%s=0 only)' % (eta_diff * TODEG, NUNAME)))
+                print('            original:', original)
 
     elif delta_constrained_to_0 and eta_constrained_to_0 and phi_not_constrained:
         # constrained to horizontal 4-circle like mode
@@ -156,10 +156,10 @@ def _tidy_degenerate_solutions(pos, constraints):
             pos.mu = desired_mu
             pos.phi += mu_diff
             if PRINT_DEGENERATE:
-                print ('DEGENERATE: with chi=90, phi and mu are colinear: choosing'
+                print(('DEGENERATE: with chi=90, phi and mu are colinear: choosing'
                        ' mu = %s/2 by adding % 7.3f to mu and to phi. '
-                       '(delta=eta=0 only)' % (NUNAME, mu_diff * TODEG))
-                print '            original:', original
+                       '(delta=eta=0 only)' % (NUNAME, mu_diff * TODEG)))
+                print('            original:', original)
 
     return pos
 
@@ -279,10 +279,10 @@ class YouHklCalculator(HklCalculatorBase):
         _hw_pos = settings.hardware.get_position()
         _you_pos = settings.geometry.physical_angles_to_internal_position(_hw_pos).totuple()
 
-        metric = lambda (a, b): 2.* asin(abs(sin((a - b) * TORAD / 2.))) * TODEG
+        metric = lambda a_b: 2.* asin(abs(sin((a_b[0] - a_b[1]) * TORAD / 2.))) * TODEG
 
         for _pos, _ in pos_virtual_angles_pairs_in_degrees:
-            pos_pairs = zip(_pos.totuple(), _you_pos)
+            pos_pairs = list(zip(_pos.totuple(), _you_pos))
             absolute_distances.append([metric(p)for p in pos_pairs])
 
         min_distances = [min(d) for d in zip(*absolute_distances)]
@@ -333,7 +333,7 @@ class YouHklCalculator(HklCalculatorBase):
             
             # to degrees:
             pos.changeToDegrees()
-            for key, val in virtual_angles.items():
+            for key, val in list(virtual_angles.items()):
                 if val is not None:
                     virtual_angles[key] = val * TODEG
 
@@ -372,7 +372,7 @@ class YouHklCalculator(HklCalculatorBase):
                     
                     # to degrees:
                     pos.changeToDegrees()
-                    for key, val in virtual_angles.items():
+                    for key, val in list(virtual_angles.items()):
                         if val is not None:
                             virtual_angles[key] = val * TODEG
         
@@ -415,7 +415,7 @@ class YouHklCalculator(HklCalculatorBase):
         # constraints are dictionaries  
         ref_constraint = self.constraints.reference
         if ref_constraint:
-            ref_constraint_name, ref_constraint_value = ref_constraint.items()[0]
+            ref_constraint_name, ref_constraint_value = list(ref_constraint.items())[0]
         det_constraint = self.constraints.detector
         naz_constraint = self.constraints.naz
         samp_constraints = self.constraints.sample
@@ -445,11 +445,11 @@ class YouHklCalculator(HklCalculatorBase):
 
         n_phi = self._get_n_phi()
         if ref_constraint:
-            if set(['psi', 'a_eq_b', 'alpha', 'beta']).issuperset(ref_constraint.keys()):
+            if set(['psi', 'a_eq_b', 'alpha', 'beta']).issuperset(list(ref_constraint.keys())):
                 # An angle for the reference vector (n) is given      (Section 5.2)         
                 alpha, _ = self._calc_remaining_reference_angles(
                     ref_constraint_name, ref_constraint_value, theta, tau)
-            elif set(['bin_eq_bout', 'betain', 'betaout']).issuperset(ref_constraint.keys()):
+            elif set(['bin_eq_bout', 'betain', 'betaout']).issuperset(list(ref_constraint.keys())):
                 alpha, _ = self._calc_remaining_reference_angles(
                     ref_constraint_name, ref_constraint_value, theta, surf_tau)
                 tau = surf_tau
@@ -467,7 +467,7 @@ class YouHklCalculator(HklCalculatorBase):
 
             elif len(samp_constraints) == 2:
                 if det_constraint:
-                    det_constraint_name, det_constraint_val = det_constraint.items()[0]
+                    det_constraint_name, det_constraint_val = list(det_constraint.items())[0]
                     for delta, nu, qaz in self._calc_remaining_detector_angles(det_constraint_name, det_constraint_val, theta):
                         for mu, eta, chi, phi in self._calc_sample_angles_given_two_sample_and_detector(
                             samp_constraints, qaz, theta, h_phi, n_phi):
@@ -539,7 +539,7 @@ class YouHklCalculator(HklCalculatorBase):
                                self.constraints.detector,
                                self.constraints.naz]:
                 try:
-                    constraint_name, constraint_value = constraint.items()[0]
+                    constraint_name, constraint_value = list(constraint.items())[0]
                     if constraint_name == 'a_eq_b':
                         diff = pseudo_angles['alpha'] - pseudo_angles['beta']
                     elif constraint_name == 'bin_eq_bout':
@@ -663,7 +663,7 @@ class YouHklCalculator(HklCalculatorBase):
             return
         if det_constraint:
             # One of the detector angles is given                 (Section 5.1)
-            det_constraint_name, det_constraint = det_constraint.items()[0]
+            det_constraint_name, det_constraint = list(det_constraint.items())[0]
             for delta, nu, qaz in self._calc_remaining_detector_angles(
                                         det_constraint_name, det_constraint, theta):
                 if is_small(naz_qaz_angle):
@@ -673,7 +673,7 @@ class YouHklCalculator(HklCalculatorBase):
                 for naz in naz_angles:
                     yield qaz, naz, delta, nu
         elif naz_constraint: # The 'detector' angle naz is given:
-            det_constraint_name, det_constraint = naz_constraint.items()[0]
+            det_constraint_name, det_constraint = list(naz_constraint.items())[0]
             naz_name, naz = det_constraint_name, det_constraint
             assert naz_name == 'naz'
             if is_small(naz_qaz_angle):
@@ -709,9 +709,9 @@ class YouHklCalculator(HklCalculatorBase):
                 #raise DiffcalcException(
                 #    'The %s and %s circles are redundant when delta is constrained to %.0f degrees.'
                 #    'Please change delta constraint or use 4-circle mode.' % (NUNAME, 'mu', delta * TODEG))
-                print (('DEGENERATE: with delta=90, %s is degenerate: choosing '
+                print((('DEGENERATE: with delta=90, %s is degenerate: choosing '
                        '%s = 0 (allowed because %s is unconstrained)') %
-                       (NUNAME, NUNAME, NUNAME))
+                       (NUNAME, NUNAME, NUNAME)))
                 acos_nu = 1.
             else:
                 try:
@@ -770,9 +770,9 @@ class YouHklCalculator(HklCalculatorBase):
             for delta in delta_angles:
                 cos_delta = cos(delta)
                 if is_small(cos_delta):
-                    print (('DEGENERATE: with delta=90, %s is degenerate: choosing '
+                    print((('DEGENERATE: with delta=90, %s is degenerate: choosing '
                            '%s = 0 (allowed because %s is unconstrained)') %
-                           (NUNAME, NUNAME, NUNAME))
+                           (NUNAME, NUNAME, NUNAME)))
                     #raise DiffcalcException(
                     #    'The %s circle is redundant when delta is at %.0f degrees.'
                     #    'Please change detector constraint or use 4-circle mode.' % (NUNAME, delta * TODEG))
@@ -790,7 +790,7 @@ class YouHklCalculator(HklCalculatorBase):
     def _calc_sample_angles_from_one_sample_constraint(
             self, samp_constraints, h_phi, theta, alpha, qaz, naz, n_phi):
         
-        sample_constraint_name, sample_value = samp_constraints.items()[0]
+        sample_constraint_name, sample_value = list(samp_constraints.items())[0]
         q_lab = matrix([[cos(theta) * sin(qaz)], 
                 [-sin(theta)], 
                 [cos(theta) * cos(qaz)]]) # (18)

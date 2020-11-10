@@ -16,7 +16,7 @@
 # along with Diffcalc.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-from __future__ import with_statement
+
 
 import os, glob
 import datetime
@@ -84,7 +84,7 @@ class UBCalculationJSONPersister(object):
         return metadata
     
     def _get_save_files(self):
-        files = filter(os.path.isfile, glob.glob(os.path.join(self.directory, '*.json')))
+        files = list(filter(os.path.isfile, glob.glob(os.path.join(self.directory, '*.json'))))
         files.sort(key=lambda x: os.path.getmtime(x))
         files.reverse()
         return files
@@ -104,13 +104,13 @@ class UBCalculationPersister(object):
                 LocalDatabaseException
             self.shelf = LocalJythonShelfManager.getLocalObjectShelf(
                 'diffcalc.ub')
-        except ImportError, e:
-            print ("!!! UBCalculationPersister could not import the gda database "
-                   "code: " + repr(e))
+        except ImportError as e:
+            print(("!!! UBCalculationPersister could not import the gda database "
+                   "code: " + repr(e)))
             self.shelf = None
-        except LocalDatabaseException, e:
-            print ("UBCalculationPersister could not connect to the gda "
-                   "database: " + repr(e))
+        except LocalDatabaseException as e:
+            print(("UBCalculationPersister could not connect to the gda "
+                   "database: " + repr(e)))
             self.shelf = None
         self.description = 'GDA sql database'
         self.directory = ""
@@ -120,7 +120,7 @@ class UBCalculationPersister(object):
         if self.shelf is not None:
             self.shelf[key] = state
         else:
-            print "<<<no database available to save UB calculation>>>"
+            print("<<<no database available to save UB calculation>>>")
 
     def load(self, name):
         if self.shelf is not None:

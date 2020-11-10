@@ -363,8 +363,8 @@ class MultiInputExtraFieldsDummyScannable(ScannableMotionBase):
                 self.currentposition[i] = float(new_position[i])
 
     def getPosition(self):
-        extraValues = range(100, 100 + (len(self.getExtraNames())))
-        return self.currentposition + map(float, extraValues)
+        extraValues = list(range(100, 100 + (len(self.getExtraNames()))))
+        return self.currentposition + list(map(float, extraValues))
 
 
 class ZeroInputExtraFieldsDummyScannable(ScannableMotionBase):

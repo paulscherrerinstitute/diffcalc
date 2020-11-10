@@ -151,7 +151,7 @@ class ConstraintAdapter(object):
 
     def getParameterDict(self):
         names = self._constraints.available
-        return dict(zip(names, [None] * len(names)))
+        return dict(list(zip(names, [None] * len(names))))
 
     def setParameter(self, name, value):
         self._constraints.set_constraint(name, value)
@@ -237,7 +237,7 @@ class WillmottHorizontalCalculator(HklCalculatorBase):
         if not self.constraints.reference:
             raise ValueError("No reference constraint has been constrained.")
 
-        ref_name, ref_value = self.constraints.reference.items()[0]
+        ref_name, ref_value = list(self.constraints.reference.items())[0]
         if ref_value is not None:
             ref_value *= TORAD
         if ref_name == 'betain':

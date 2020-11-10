@@ -62,9 +62,9 @@ class TestPos(object):
         scnA = self.dummyMainNamespace['scnA']
         self.pos.__call__(scnA)
         self.pos.__call__(scnA, 4.321)
-        print "*"
+        print("*")
         self.pos.__call__()
-        print "*"
+        print("*")
 
     def testPosReturningReportWithMultiFieldScannables(self):
         scn = MultiInputExtraFieldsDummyScannable('mie', ['i1', 'i2'], ['e1'])

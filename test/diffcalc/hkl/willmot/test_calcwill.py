@@ -63,9 +63,9 @@ class _BaseTest():
 
     def _check_hkl_to_angles(self, testname, zrot, yrot, hkl, pos_expected,
                              wavelength, virtual_expected={}):
-        print ('_check_hkl_to_angles(%s, %.1f, %.1f, %s, %s, %.2f, %s)'
+        print(('_check_hkl_to_angles(%s, %.1f, %.1f, %s, %s, %.2f, %s)'
                % (testname, zrot, yrot, hkl, pos_expected, wavelength,
-                  virtual_expected))
+                  virtual_expected)))
         self.zrot, self.yrot = zrot, yrot
         self._configure_ub()
         pos, virtual = self.calc.hklToAngles(hkl[0], hkl[1], hkl[2],
@@ -76,9 +76,9 @@ class _BaseTest():
 
     def _check_angles_to_hkl(self, testname, zrot, yrot, hkl_expected, pos,
                              wavelength, virtual_expected={}):
-        print ('_check_angles_to_hkl(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
+        print(('_check_angles_to_hkl(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
                (testname, zrot, yrot, hkl_expected, pos, wavelength,
-                virtual_expected))
+                virtual_expected)))
         self.zrot, self.yrot = zrot, yrot
         self._configure_ub()
         hkl, virtual = self.calc.anglesToHkl(pos, wavelength)
@@ -130,8 +130,8 @@ class TestUBCalculationWithWillmotStrategy_Si_5_5_12():
             Si_5_5_12_HKL1[0], Si_5_5_12_HKL1[1], Si_5_5_12_HKL1[2],
             Si_5_5_12_REF1, 12.39842 / Si_5_5_12_WAVELENGTH, 'ref1', None)
         self.ubcalc.calculate_UB()
-        print "U: ", self.ubcalc.U
-        print "UB: ", self.ubcalc.UB
+        print("U: ", self.ubcalc.U)
+        print("UB: ", self.ubcalc.UB)
         matrixeq_(self.ubcalc.U, Si_5_5_12_U_DIFFCALC)
 
 
@@ -268,8 +268,8 @@ class TestUBCalculationWithWillmotStrategy_Pt531():
             Pt531_HKL1[0], Pt531_HKL1[1], Pt531_HKL1[2], Pt531_REF1,
             12.39842 / Pt531_WAVELENGTH, 'ref1', None)
         self.ubcalc.calculate_UB()
-        print "U: ", self.ubcalc.U
-        print "UB: ", self.ubcalc.UB
+        print("U: ", self.ubcalc.U)
+        print("UB: ", self.ubcalc.UB)
         matrixeq_(self.ubcalc.U, Pt531_U_DIFFCALC)
 
 

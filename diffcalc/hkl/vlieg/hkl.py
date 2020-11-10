@@ -41,12 +41,12 @@ def hklmode(num=None):
     """hklmode {num} -- changes mode or shows current and available modes and all settings""" #@IgnorePep8
 
     if num is None:
-        print hklcalc.__str__()
+        print(hklcalc.__str__())
     else:
         hklcalc.mode_selector.setModeByIndex(int(num))
         pm = hklcalc.parameter_manager
-        print (hklcalc.mode_selector.reportCurrentMode() + "\n" +
-               pm.reportParametersUsedInCurrentMode())
+        print((hklcalc.mode_selector.reportCurrentMode() + "\n" +
+               pm.reportParametersUsedInCurrentMode()))
 
 def _setParameter(name, value):
     hklcalc.parameter_manager.set_constraint(name, value)
@@ -63,10 +63,10 @@ def setpar(scannable_or_string=None, val=None):
     if scannable_or_string is None:
         #show all
         parameterDict = hklcalc.parameter_manager.getParameterDict()
-        names = parameterDict.keys()
+        names = list(parameterDict.keys())
         names.sort()
         for name in names:
-            print _representParameter(name)
+            print(_representParameter(name))
     else:
         name = getNameFromScannableOrString(scannable_or_string)
         if val is None:
@@ -74,7 +74,7 @@ def setpar(scannable_or_string=None, val=None):
         else:
             oldval = _getParameter(name)
             _setParameter(name, float(val))
-            print _representParameter(name, oldval, float(val))
+            print(_representParameter(name, oldval, float(val)))
 
 def _representParameter(name, oldval=None, newval=None):
     flags = ''
@@ -113,7 +113,7 @@ def _checkInputAndSetOrShowParameterTracking(name, b=None):
     flags = ''
     if hklcalc.parameter_manager.isParameterTracked(name):
         flags += '(tracking hardware)'
-    print "%s: %s %s" % (name, lastValue, flags)
+    print("%s: %s %s" % (name, lastValue, flags))
 
 @command
 def trackalpha(b=None):

@@ -108,9 +108,9 @@ class _BaseTest(object):
 
     def _check_hkl_to_angles(self, testname, zrot, yrot, hkl, pos_expected,
                              wavelength, virtual_expected={}):
-        print ('_check_hkl_to_angles(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
+        print(('_check_hkl_to_angles(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
                (testname, zrot, yrot, hkl, pos_expected, wavelength,
-                virtual_expected))
+                virtual_expected)))
         self.zrot, self.yrot = zrot, yrot
         self._configure_ub()
 
@@ -122,9 +122,9 @@ class _BaseTest(object):
 
     def _check_angles_to_hkl(self, testname, zrot, yrot, hkl_expected, pos,
                              wavelength, virtual_expected={}):
-        print ('_check_angles_to_hkl(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
+        print(('_check_angles_to_hkl(%s, %.1f, %.1f, %s, %s, %.2f, %s)' %
                (testname, zrot, yrot, hkl_expected, pos, wavelength,
-                virtual_expected))
+                virtual_expected)))
         self.zrot, self.yrot = zrot, yrot
         self._configure_ub()
         hkl, virtual = self.calc.anglesToHkl(pos, wavelength)
@@ -136,7 +136,7 @@ class _BaseTest(object):
         self._check_hkl_to_angles(*args)
 
     def case_generator(self):
-        for case in self.case_dict.values():
+        for case in list(self.case_dict.values()):
             yield (self._check_angles_to_hkl, case.name, self.zrot, self.yrot,
                    case.hkl, case.position, self.wavelength, {})
             test_method = (self._check_hkl_to_angles_fails if case.fails else

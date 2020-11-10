@@ -22,7 +22,7 @@ def alias_commands(global_namespace_dict):
     gnd = global_namespace_dict
     global GLOBAL_NAMESPACE_DICT
     GLOBAL_NAMESPACE_DICT = gnd
-    print "Aliasing commands"
+    print("Aliasing commands")
     
     ### Alias commands in namespace ###
     commands = gnd['hkl_commands_for_help']
@@ -40,4 +40,4 @@ def alias_commands(global_namespace_dict):
         alias(f.__name__)
         aliased_names.append(f.__name__)
 
-    print "Aliased commands: " + ' '.join(aliased_names) 
+    print("Aliased commands: " + ' '.join(aliased_names)) 

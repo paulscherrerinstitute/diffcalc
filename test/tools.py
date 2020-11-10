@@ -84,7 +84,7 @@ def assert_matrix_almost_equal(first, second, places=7, msg=None, note=None):
 def assert_dict_almost_equal(first, second, places=7, msg=None, note=None):
     def_msg = "%r != %r as keys differ%s" % (first, second, format_note(note))
     assert set(first.keys()) == set(second.keys()), msg or def_msg
-    keys = first.keys()
+    keys = list(first.keys())
     keys.sort()
     for key in keys:
         f = first[key]
@@ -103,8 +103,8 @@ dneq_ = assert_dict_almost_equal
 
 def assert_second_dict_almost_in_first(value, expected, places=7, msg=None):
     value = value.copy()
-    for key in value.keys():
-        if key not in expected.keys():
+    for key in list(value.keys()):
+        if key not in list(expected.keys()):
             del value[key]
     assert_dict_almost_equal(value, expected, places=7, msg=None)
 
@@ -142,10 +142,10 @@ def wrap_command_to_print_calls(f, user_syntax=True):
                 except AttributeError:
                     arg_strings.append(repr(arg))  # e.g. number or string
 
-        print '\n>>>', f.__name__, ' '.join(arg_strings)
+        print('\n>>>', f.__name__, ' '.join(arg_strings))
 
     def print_with_python_syntax(f, args):
-        print '\n>>> %s(%s)' % (f.__name__, ', '.join(args))
+        print('\n>>> %s(%s)' % (f.__name__, ', '.join(args)))
 
     def print_and_call_command(f, args):
         if user_syntax:
@@ -154,7 +154,7 @@ def wrap_command_to_print_calls(f, user_syntax=True):
             print_with_python_syntax(f, args)
         result = f(*args)
         if result is not None:
-            print result
+            print(result)
         return result
 
     @wraps(f)

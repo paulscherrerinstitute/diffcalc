@@ -81,7 +81,7 @@ class Sr2(ScannableMotionWithScannableFieldsBase):
             hkl_sc= [sc * val for val in _hkl_ref]
             hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*hkl_sc, pol=pol, az=az)
             (pos, _) = self._diffcalc.hkl_to_angles(*hkl_offset)
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             if DEBUG:
                 raise
             else:
@@ -127,7 +127,7 @@ class Sr2(ScannableMotionWithScannableFieldsBase):
         hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*hkl_sc, pol=pol, az=az)
         (pos, params) = self._diffcalc.hkl_to_angles(*hkl_offset)
 
-        width = max(len(k) for k in (params.keys() + list(self.diffhw.getInputNames())))
+        width = max(len(k) for k in (list(params.keys()) + list(self.diffhw.getInputNames())))
         fmt = '  %' + str(width) + 's : % 9.4f'
 
         lines = ['simulated hkl: %9.4f  %.4f  %.4f' % (hkl_offset[0],hkl_offset[1],hkl_offset[2]),
@@ -152,7 +152,7 @@ class Sr2(ScannableMotionWithScannableFieldsBase):
         try:
             (hkl_pos, params) = self._diffcalc.angles_to_hkl(pos)
             _, az, _ = self._diffcalc._ub.ubcalc.calc_offset_for_hkl(hkl_pos, _hkl_ref)
-        except Exception, e:
+        except Exception as e:
             return "<sr2: %s>" % getMessageFromException(e)
 
         width = max(len(k) for k in params)

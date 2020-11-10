@@ -1,5 +1,6 @@
 
 from math import pi
+import importlib
 
 try:
     from numpy import matrix
@@ -32,7 +33,7 @@ def setup_module():
     settings.ubcalc_persister = UbCalculationNonPersister()
     
     from diffcalc.dc import dcyou as dc
-    reload(dc)
+    importlib.reload(dc)
 
     dc.newub('test')
     dc.setlat('cubic', 1, 1, 1, 90, 90, 90)

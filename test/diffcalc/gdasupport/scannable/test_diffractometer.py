@@ -91,7 +91,7 @@ class TestDiffractometerScannableGroup(object):
 
     def testWhereMoveTo(self):
         # just check for exceptions
-        print self.sg.simulateMoveTo((1.23, 2, 3, 4, 5, 6))
+        print(self.sg.simulateMoveTo((1.23, 2, 3, 4, 5, 6)))
 
     def testIsBusy(self):
         assert not self.sg.isBusy()
@@ -107,7 +107,7 @@ class TestDiffractometerScannableGroup(object):
         assert not self.sg.isBusy()
 
     def testRepr(self):
-        print self.sg.__repr__()
+        print(self.sg.__repr__())
 
 
 class TestDiffractometerScannableGroupWithSlave(

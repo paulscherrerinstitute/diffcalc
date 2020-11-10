@@ -72,7 +72,7 @@ class Hkl(ScannableMotionWithScannableFieldsBase):
         if len(hkl) != 3: raise ValueError('Hkl device expects three inputs')
         try:
             (pos, _) = self._diffcalc.hkl_to_angles(hkl[0], hkl[1], hkl[2])
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             if DEBUG:
                 raise
             else:
@@ -104,7 +104,7 @@ class Hkl(ScannableMotionWithScannableFieldsBase):
             raise ValueError('Hkl device expects three inputs')
         (pos, params) = self._diffcalc.hkl_to_angles(hkl[0], hkl[1], hkl[2])
 
-        width = max(len(k) for k in (params.keys() + list(self.diffhw.getInputNames())))
+        width = max(len(k) for k in (list(params.keys()) + list(self.diffhw.getInputNames())))
         fmt = '  %' + str(width) + 's : % 9.4f'
 
         lines = [self.diffhw.getName() + ' would move to:']
@@ -123,7 +123,7 @@ class Hkl(ScannableMotionWithScannableFieldsBase):
         pos = self.diffhw.getPosition()
         try:
             (hkl, params) = self._diffcalc.angles_to_hkl(pos)
-        except Exception, e:
+        except Exception as e:
             return "<hkl: %s>" % getMessageFromException(e)
 
         width = max(len(k) for k in params)

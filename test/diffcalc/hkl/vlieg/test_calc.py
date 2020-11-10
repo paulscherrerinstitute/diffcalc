@@ -73,8 +73,8 @@ class TestVliegCoreMathBits(object):
         self.many = [-91, -90, -89, -46, -45, -44, -1,
                      0, 1, 44, 45, 46, 89, 90, 91]
         self.many = (self.many +
-                     map(lambda x: x + 180, self.many) +
-                     map(lambda x: x - 180, self.many))
+                     [x + 180 for x in self.many] +
+                     [x - 180 for x in self.many])
 
     def test_check(self):
         check(True, 'Should not throw')
@@ -85,9 +85,9 @@ class TestVliegCoreMathBits(object):
 
         def acallable(toPrint=None):
             if toPrint is None:
-                print "Not throwing exception"
+                print("Not throwing exception")
             else:
-                print toPrint
+                print(toPrint)
 
         check(False, acallable)
         check(False, acallable, 'this should be printed')
@@ -96,7 +96,7 @@ class TestVliegCoreMathBits(object):
     def SKIP__findOmegaAndChiToRotateHchiIntoQalpha_WithIntegerValues(self):
         for omega in self.many:
             for chi in self.many:
-                print str(omega), ",", str(chi)
+                print(str(omega), ",", str(chi))
                 self.try__findOmegaAndChiToRotateHchiIntoQalpha(omega, chi)
 
     def SKIP_findOmegaAndChiToRotateHchiIntoQalpha_WithRandomValues(self):
@@ -124,7 +124,7 @@ class TestVliegCoreMathBits(object):
         try:
             omega_calc, chi_calc = _findOmegaAndChiToRotateHchiIntoQalpha(
                 h_chi, q_alpha)
-        except ValueError, e:
+        except ValueError as e:
             raise ValueError(str(e) + "\n, resulting from test where omega:%f"
                              " chi%f" % (self.omega, self.chi))
         [_, _, _, OMEGA, CHI, _] = createVliegMatrices(
@@ -188,10 +188,10 @@ class BaseTestHklCalculator():
                         (self.sess.name, self.calc.tag, hkl[0], hkl[1], hkl[2],
                          hkl_actual[0], hkl_actual[1], hkl_actual[2]))
                 mneq_(matrix([hkl_actual]), matrix([hkl]), 3, note=note)
-                print "***anglesToHkl***"
-                print "*** ", str(hkl), " ***"
-                print params
-                print param
+                print("***anglesToHkl***")
+                print("*** ", str(hkl), " ***")
+                print(params)
+                print(param)
 
     def testHklToAngles(self):
         if self.calc:
@@ -228,11 +228,11 @@ class BaseTestHklCalculator():
                         (self.sess.name, self.calc.tag, hkl[0], hkl[1], hkl[2],
                          str(expectedpos), str(pos)))
                 assert pos.nearlyEquals(expectedpos, 0.01), note
-                print "*** hklToAngles ***"
-                print "*** ", str(hkl), " ***"
-                print params
+                print("*** hklToAngles ***")
+                print("*** ", str(hkl), " ***")
+                print(params)
                 try:
-                    print self.calc.paramList[idx]
+                    print(self.calc.paramList[idx])
                 except IndexError:  # Not always specified
                     pass
 

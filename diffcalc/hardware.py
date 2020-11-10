@@ -16,7 +16,7 @@
 # along with Diffcalc.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-from __future__ import absolute_import
+
 
 from diffcalc.util import DiffcalcException
 from diffcalc import settings
@@ -39,18 +39,18 @@ def getNameFromScannableOrString(o):
 @command
 def hardware():
     """hardware  -- show diffcalc limits and cuts"""
-    print settings.hardware.repr_sector_limits_and_cuts()  # @UndefinedVariable
+    print(settings.hardware.repr_sector_limits_and_cuts())  # @UndefinedVariable
 
 @command
 def setcut(scannable_or_string=None, val=None):
     """setcut {name {val}} -- sets cut angle
     """
     if scannable_or_string is None and val is None:
-        print settings.hardware.repr_sector_limits_and_cuts()  # @UndefinedVariable
+        print(settings.hardware.repr_sector_limits_and_cuts())  # @UndefinedVariable
     else:
         name = getNameFromScannableOrString(scannable_or_string)
         if val is None:
-            print '%s: %f' % (name, settings.hardware.get_cuts()[name])  # @UndefinedVariable
+            print('%s: %f' % (name, settings.hardware.get_cuts()[name]))  # @UndefinedVariable
         else:
             oldcut = settings.hardware.get_cuts()[name]  # @UndefinedVariable
             settings.hardware.set_cut(name, float(val))  # @UndefinedVariable
@@ -74,11 +74,11 @@ def setrange(name=None, lower=None, upper=None):
 
 def _setMinOrMax(name, val, setMethod):
     if name is None:
-        print settings.hardware.repr_sector_limits_and_cuts()  # @UndefinedVariable
+        print(settings.hardware.repr_sector_limits_and_cuts())  # @UndefinedVariable
     else:
         name = getNameFromScannableOrString(name)
         if val is None:
-            print settings.hardware.repr_sector_limits_and_cuts(name)  # @UndefinedVariable
+            print(settings.hardware.repr_sector_limits_and_cuts(name))  # @UndefinedVariable
         else:
             setMethod(name, float(val))
 
@@ -213,7 +213,7 @@ class HardwareAdapter(object):
         if 'phi' in self._cut_angles:
             self._cut_angles['phi'] = 0.
         # 2. Overide with user-specified cuts
-        for name, val in defaultCutsDict.iteritems():
+        for name, val in defaultCutsDict.items():
             self.set_cut(name, val)
 
     def set_cut(self, name, value):
@@ -335,8 +335,8 @@ class DummyHardwareAdapter(HardwareAdapter):
             try:
                 del self._lowerLimitDict[name]
             except KeyError:
-                print ("WARNING: There was no lower Diffcalc limit %s set to "
-                       "clear" % name)
+                print(("WARNING: There was no lower Diffcalc limit %s set to "
+                       "clear" % name))
         else:
             self._lowerLimitDict[name] = value
 
@@ -350,8 +350,8 @@ class DummyHardwareAdapter(HardwareAdapter):
             try:
                 del self._upperLimitDict[name]
             except KeyError:
-                print ("WARNING: There was no upper Diffcalc limit %s set to "
-                       "clear" % name)
+                print(("WARNING: There was no upper Diffcalc limit %s set to "
+                       "clear" % name))
         else:
             self._upperLimitDict[name] = value
 

@@ -35,14 +35,14 @@ class Pos(object):
     def __call__(self, *posargs):
         if len(posargs) == 0:
 
-            keys = dict(ROOT_NAMESPACE_DICT).keys()
+            keys = list(dict(ROOT_NAMESPACE_DICT).keys())
             keys.sort()
             for key in keys:
                 val = ROOT_NAMESPACE_DICT[key]
                 if isinstance(val, Scannable):
-                    print self.posReturningReport(val)
+                    print(self.posReturningReport(val))
         else:
-            print self.posReturningReport(*posargs)
+            print(self.posReturningReport(*posargs))
 
     def posReturningReport(self, *posargs):
         # report position of this scannable
@@ -79,7 +79,7 @@ class Pos(object):
         result = result.ljust(10)
         try:
             pos = scannable.getPosition()
-        except Exception, e:
+        except Exception as e:
             return result + "Error: %s" % getMessageFromException(e)
         if pos is None:
             return result + "---"
@@ -162,7 +162,7 @@ class ScanDataPrinter(ScanDataHandler):
         lines.append(bold('  '.join(header_cells)))
         lines.append('  '.join(underline_cells))
         lines.append('  '.join(first_row_cells))
-        print '\n'.join(lines)
+        print('\n'.join(lines))
 
     def callWithScanPoint(self, position_dict):
         if not self.first_point_printed:
@@ -178,7 +178,7 @@ class ScanDataPrinter(ScanDataHandler):
             for pos, width in zip(row_strings, self.widths):
                 row_cells.append(pos.rjust(width))
 
-            print '  '.join(row_cells)
+            print('  '.join(row_cells))
 
     def callAtScanEnd(self):
         #table_width = sum(self.widths) + len(self.widths * 2) - 2
@@ -293,9 +293,9 @@ class Scan(object):
         """Range function that accepts scalers or lists of floats (and integers).
         """
         try:
-            ranges = zip(limit1, limit2, increment)
+            ranges = list(zip(limit1, limit2, increment))
         except TypeError:
-            ranges = zip([limit1], [limit2], [increment])
+            ranges = list(zip([limit1], [limit2], [increment]))
         counts = []
         for l1, l2, incr in ranges:
             step = abs(incr) if l2 >= l1 else -abs(incr) 
@@ -311,7 +311,7 @@ class Scan(object):
         if len(result) == 1:
             result = result[0]
         else:
-            result= zip(*result)
+            result= list(zip(*result))
         return result
 
 
@@ -325,7 +325,7 @@ def sim(scn, hkl):
         raise TypeError()
 
     try:
-        print scn.simulateMoveTo(hkl)
+        print(scn.simulateMoveTo(hkl))
     except AttributeError:
         raise TypeError(
                 "The first argument does not support simulated moves")

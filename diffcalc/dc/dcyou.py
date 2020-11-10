@@ -3,17 +3,18 @@ from diffcalc.dc.common import energy_to_wavelength
 from diffcalc.dc.help import compile_extra_motion_commands_for_help
 
 import diffcalc.hkl.you.calc
+import importlib
 settings.ubcalc_strategy = diffcalc.hkl.you.calc.YouUbCalcStrategy()
 settings.angles_to_hkl_function = diffcalc.hkl.you.calc.youAnglesToHkl
 
 # reload to aid testing only
 from diffcalc.ub import ub as _ub
 
-reload(_ub)
+importlib.reload(_ub)
 from diffcalc import hardware as _hardware
 #reload(_hardware)
 from diffcalc.hkl.you import hkl as _hkl
-reload(_hkl)
+importlib.reload(_hkl)
 
 from diffcalc.ub.ub import *  # @UnusedWildImport
 from diffcalc.hardware import *  # @UnusedWildImport

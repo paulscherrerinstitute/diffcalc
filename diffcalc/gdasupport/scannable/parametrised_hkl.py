@@ -82,7 +82,7 @@ class ParametrisedHKLScannable(Hkl):
         try:
             (hkl, params) = self._diffcalc.angles_to_hkl(pos)
             scn_params = self.hkl_to_parameter(list(hkl))
-        except Exception, e:
+        except Exception as e:
             return "<%s: %s>" % (self.name, getMessageFromException(e))
 
         width = max(len(k) for k in params)

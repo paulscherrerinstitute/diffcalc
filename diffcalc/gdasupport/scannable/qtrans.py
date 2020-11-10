@@ -90,7 +90,7 @@ class Qtrans(ScannableMotionBase):
         try:
             hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*sc_nref_hkl, pol=newpol, az=az_nref)
             (pos, _) = self._diffcalc.hkl_to_angles(*hkl_offset)
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             if DEBUG:
                 raise
             else:
@@ -139,13 +139,13 @@ class Qtrans(ScannableMotionBase):
         try:
             hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*sc_nref_hkl, pol=newpol, az=az_nref)
             (pos, params) = self._diffcalc.hkl_to_angles(*hkl_offset)
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             if DEBUG:
                 raise
             else:
                 raise DiffcalcException(e.message)
 
-        width = max(len(k) for k in (params.keys() + list(self.diffhw.getInputNames())))
+        width = max(len(k) for k in (list(params.keys()) + list(self.diffhw.getInputNames())))
         fmt = '  %' + str(width) + 's : % 9.4f'
 
         lines = ['simulated hkl: %9.4f  %.4f  %.4f' % (hkl_offset[0],hkl_offset[1],hkl_offset[2]),

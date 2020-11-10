@@ -16,7 +16,7 @@
 # along with Diffcalc.  If not, see <http://www.gnu.org/licenses/>.
 ###
 
-from __future__ import absolute_import
+
 
 from diffcalc.hkl.common import getNameFromScannableOrString
 from diffcalc.util import command
@@ -87,7 +87,7 @@ def con(*args):
         msg += ("\n\nWARNING: The selected constraint combination "
             "is not implemented.\n\nType 'help con' to see implemented combinations")
     if msg:
-        print msg
+        print(msg)
 
     diffcalc.ub.ub.ubcalc.save()
 
@@ -103,7 +103,7 @@ def _handle_con(args):
     while args:
         scn_or_str = args.pop(0)
         ext_name = getNameFromScannableOrString(scn_or_str)
-        if args and isinstance(args[0], (int, long, float)):
+        if args and isinstance(args[0], (int, float)):
             ext_value = args.pop(0)
         else:
             try:
@@ -135,7 +135,7 @@ def uncon(scn_or_string):
     ext_name = getNameFromScannableOrString(scn_or_string)
     cons_name = settings.geometry.map_to_internal_name(ext_name)
     hklcalc.constraints.unconstrain(cons_name)
-    print '\n'.join(hklcalc.constraints.report_constraints_lines())
+    print('\n'.join(hklcalc.constraints.report_constraints_lines()))
 
     diffcalc.ub.ub.ubcalc.save()
 
@@ -207,7 +207,7 @@ def allhkl(hkl, wavelength=None):
     lines.append('')
     for msg in msg_lines:
         lines.append(msg[:total_width])
-    print '\n'.join(lines)
+    print('\n'.join(lines))
 
 
 commands_for_help = ['Constraints',

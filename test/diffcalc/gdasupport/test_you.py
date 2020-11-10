@@ -26,6 +26,7 @@ from diffcalc.hkl.you.geometry import SixCircle
 from diffcalc.ub.persistence import UbCalculationNonPersister
 
 import diffcalc.util  # @UnusedImport
+import importlib
 
 try:
     from numpy import matrix
@@ -63,7 +64,7 @@ def setup_module():
     settings.angles_to_hkl_function = diffcalc.hkl.you.calc.youAnglesToHkl
 
     from diffcalc.gdasupport import you
-    reload(you)
+    importlib.reload(you)
 
 
 """
@@ -83,8 +84,8 @@ interface, and to make sure it all works together.
 
 
 def call_scannable(scn):
-    print '\n>>> %s' % scn.name
-    print scn.__str__()
+    print('\n>>> %s' % scn.name)
+    print(scn.__str__())
 
 
 
@@ -92,11 +93,11 @@ def call_scannable(scn):
 
 
 def test_help_visually():
-    print "\n>>> help ub"
+    print("\n>>> help ub")
     help(you.ub)
-    print "\n>>> help hkl"
+    print("\n>>> help hkl")
     help(you.hkl)
-    print "\n>>> help newub"
+    print("\n>>> help newub")
     help(you.newub)
 
 def test_axes():

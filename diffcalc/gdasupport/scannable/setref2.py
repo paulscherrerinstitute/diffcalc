@@ -26,8 +26,8 @@ def setref2(scn, hkl):
     hkl_rot.extend([pol * TODEG, az * TODEG])
     hkl_sc.extend([0, 0])
 
-    print ('\nRescaled hkl reference for second reflection : %9.4f  %.4f  %.4f' % (hkl_sc[0], hkl_sc[1], hkl_sc[2]))
-    print ('         polar and azimuthal rotation angles : %9.4f  %.4f\n' % (pol * TODEG, az * TODEG))
+    print(('\nRescaled hkl reference for second reflection : %9.4f  %.4f  %.4f' % (hkl_sc[0], hkl_sc[1], hkl_sc[2])))
+    print(('         polar and azimuthal rotation angles : %9.4f  %.4f\n' % (pol * TODEG, az * TODEG)))
 
     sim(scn, hkl_sc)
     print ('IMPORTANT: Applying subsequent polar and azimuthal rotations might fail. In this case, please manually\n'
@@ -36,7 +36,7 @@ def setref2(scn, hkl):
     if reply in ('y', 'Y', 'yes'):
         scn.asynchronousMoveTo(hkl_sc)
     else:
-        print 'Aborting'
+        print('Aborting')
         return
 
     sim(scn, hkl_rot)
@@ -44,5 +44,5 @@ def setref2(scn, hkl):
     if reply in ('y', 'Y', 'yes'):
         scn.asynchronousMoveTo(hkl_rot)
     else:
-        print 'Aborting'
+        print('Aborting')
         return

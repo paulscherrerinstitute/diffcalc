@@ -91,7 +91,7 @@ class TestSimulatedCrystalCounter(object):
 
     def test__repr__(self):
         self.diff.pos = [60, 30, 0, 0]
-        print self.scc.__repr__()
+        print(self.scc.__repr__())
 
 
 class TestGaussianEquation(object):

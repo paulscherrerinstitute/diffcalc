@@ -19,6 +19,7 @@
 import unittest
 from diffcalc import settings
 import pytest
+import importlib
 
 try:
     from gdascripts.pd.dummy_pds import DummyPD  # @UnusedImport
@@ -56,7 +57,7 @@ class TestHardwareAdapterBase(object):
         assert self.hardware.get_axes_names() == ('a', 'b', 'c')
 
     def test__repr__(self):
-        print self.hardware.__repr__()
+        print(self.hardware.__repr__())
 
     def testSetGetPosition(self):
         pass
@@ -104,17 +105,17 @@ class TestHardwareCommands():
         self.hardware = DummyHardwareAdapter(['a', 'b', 'c'])
         settings.hardware = self.hardware
         from diffcalc import hardware
-        reload(hardware)
+        importlib.reload(hardware)
         self.commands = hardware
 
     def testSetcut(self):
-        print "*******"
+        print("*******")
         self.commands.setcut()
-        print "*******"
+        print("*******")
         self.commands.setcut('a')
-        print "*******"
+        print("*******")
         self.commands.setcut('a', -181)
-        print "*******"
+        print("*******")
         eq_(self.hardware.get_cuts()['a'], -181)
         assert_raises(
             ValueError, self.commands.setcut, 'a', 'not a number')
@@ -123,11 +124,11 @@ class TestHardwareCommands():
 
     def test_set_lim(self):
         self.commands.setmin('a', -1)
-        print "*******"
+        print("*******")
         self.commands.setmin()
-        print "*******"
+        print("*******")
         self.commands.setmax()
-        print "*******"
+        print("*******")
 
 
 class TestDummyHardwareAdapter(object):
@@ -144,7 +145,7 @@ class TestDummyHardwareAdapter(object):
                 == ('alpha', 'delta', 'gamma', 'omega', 'chi', 'phi'))
 
     def test__repr__(self):
-        print self.hardware.__repr__()
+        print(self.hardware.__repr__())
 
     def testSetGetPosition(self):
         pass
@@ -165,7 +166,7 @@ class TestDummyHardwareAdapter(object):
         with pytest.raises(ValueError):
             self.hardware.set_lower_limit('not an angle', 1)
         self.hardware.set_lower_limit('delta', None)
-        print "Should print WARNING:"
+        print("Should print WARNING:")
         self.hardware.set_lower_limit('delta', None)
         assert self.hardware.get_lower_limit('alpha') == -1
         assert self.hardware.get_lower_limit('gamma') == -3
@@ -177,7 +178,7 @@ class TestDummyHardwareAdapter(object):
         with pytest.raises(ValueError):
             self.hardware.set_upper_limit('not an angle', 1)
         self.hardware.set_upper_limit('delta', None)
-        print "Should print WARNING:"
+        print("Should print WARNING:")
         self.hardware.set_upper_limit('delta', None)
         assert self.hardware.get_upper_limit('alpha') == 1
         assert self.hardware.get_upper_limit('gamma') == 3
@@ -253,7 +254,7 @@ class TestGdaHardwareMonitor(object):
         with pytest.raises(DiffcalcException):
             self.hardware.set_lower_limit('not an angle', 1)
         self.hardware.set_lower_limit('d', None)
-        print "Should print WARNING:"
+        print("Should print WARNING:")
         self.hardware.set_lower_limit('d', None)
         assert self.hardware.get_lower_limit('a') == -1
         assert self.hardware.get_lower_limit('c') == -3
@@ -265,7 +266,7 @@ class TestGdaHardwareMonitor(object):
         with pytest.raises(DiffcalcException):
             self.hardware.set_upper_limit('not an angle', 1)
         self.hardware.set_upper_limit('d', None)
-        print "Should print WARNING:"
+        print("Should print WARNING:")
         self.hardware.set_upper_limit('d', None)
         assert self.hardware.get_upper_limit('a') == 1
         assert self.hardware.get_upper_limit('c') == 3

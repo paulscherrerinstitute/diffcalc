@@ -27,8 +27,8 @@ except ImportError:
     from numjy import matrix
 
 circ_hkl = ParametrisedHKLScannable('circ', ('q', 'pol', 'az'))
-circ_hkl.parameter_to_hkl = lambda (q, pol, az): (q * sin(pol) * cos(az), q * sin(pol) * sin(az), q * cos(pol))
-circ_hkl.hkl_to_parameter = lambda (h, k, l): (sqrt(h*h+k*k+l*l), acos(l/sqrt(h*h+k*k+l*l)), atan2(k, h))
+circ_hkl.parameter_to_hkl = lambda q_pol_az: (q_pol_az[0] * sin(q_pol_az[1]) * cos(q_pol_az[2]), q_pol_az[0] * sin(q_pol_az[1]) * sin(q_pol_az[2]), q_pol_az[0] * cos(q_pol_az[1]))
+circ_hkl.hkl_to_parameter = lambda h_k_l: (sqrt(h_k_l[0]*h_k_l[0]+h_k_l[1]*h_k_l[1]+h_k_l[2]*h_k_l[2]), acos(h_k_l[2]/sqrt(h_k_l[0]*h_k_l[0]+h_k_l[1]*h_k_l[1]+h_k_l[2]*h_k_l[2])), atan2(h_k_l[1], h_k_l[0]))
 
 def __polar_to_hkl(params):
     from diffcalc.dc import dcyou as _dc

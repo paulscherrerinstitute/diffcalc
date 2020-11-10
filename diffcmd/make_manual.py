@@ -1,6 +1,6 @@
 
 
-from StringIO import StringIO
+from io import StringIO
 from IPython import get_ipython
 import sys
 from diffcalc.dc.help import format_commands_for_rst_table
@@ -29,7 +29,7 @@ should do the thing
 
 
 def echorun(magic_cmd):
-    print "\n>>> " + str(magic_cmd)
+    print("\n>>> " + str(magic_cmd))
      
 
     
@@ -48,16 +48,16 @@ def make_manual(input_file_path,
         process = '==>' in line
             
         if process and 'STOP' in line:
-            print "'==> STOP' found on line. STOPPING", lineno + 1
+            print("'==> STOP' found on line. STOPPING", lineno + 1)
             return
         
         elif process and 'UB_HELP_TABLE' in line:
-            print 'Creating UB help table'
+            print('Creating UB help table')
             output_lines_from_line = format_commands_for_rst_table(
                 '', ub_commands_for_help)
             
         elif process and 'HKL_HELP_TABLE' in line:
-            print 'Creating HKL help table'
+            print('Creating HKL help table')
             output_lines_from_line = format_commands_for_rst_table(
                 '', hkl_commands_for_help)
                 
@@ -72,7 +72,7 @@ def make_manual(input_file_path,
     if output_file_path:
         with open(output_file_path, 'w') as f:
             f.write('\n'.join(output_lines))
-        print "Wrote file:", output_file_path
+        print("Wrote file:", output_file_path)
 #     try:
 #         if output_file_path:
 #             orig_stdout = sys.stdout

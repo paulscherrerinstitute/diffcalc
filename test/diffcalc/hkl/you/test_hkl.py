@@ -23,6 +23,7 @@ from diffcalc import settings
 import diffcalc
 from test.diffcalc.test_hardware import SimpleHardwareAdapter
 from diffcalc.hkl.you.geometry import SixCircle
+import importlib
 diffcalc.util.DEBUG = True
 
 
@@ -36,7 +37,7 @@ def setup_module():
     settings.geometry.fixed_constraints = {}
     
     from diffcalc.hkl.you import hkl
-    reload(hkl)
+    importlib.reload(hkl)
     
     hkl.hklcalc = Mock()
     hkl.hklcalc.constraints.report_constraints_lines.return_value = ['report1', 'report2']
@@ -88,8 +89,8 @@ def test_con_with_3_constraints_all_vals():
     
 def test_con_messages_and_help_visually():
     hkl.con()
-    print "**"
-    print hkl.con.__doc__
+    print("**")
+    print(hkl.con.__doc__)
     
 def test_con_message_display_whenn_selecting_an_unimplmented_mode():
     hkl.hklcalc.constraints.is_fully_constrained.return_value = True

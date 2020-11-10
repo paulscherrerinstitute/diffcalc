@@ -119,7 +119,7 @@ class ModeSelector(object):
 
     def setModeByName(self, name):
         def findModeWithName(name):
-            for index, mode in self._modelist.items():
+            for index, mode in list(self._modelist.items()):
                 if mode.name == name:
                     return index, mode
             raise ValueError
@@ -129,7 +129,7 @@ class ModeSelector(object):
         except ValueError:
             raise DiffcalcException(
                 'Unknown mode. The diffraction calculator supports these '
-                'modeSelector: %s' % self._supportedModes.keys())
+                'modeSelector: %s' % list(self._supportedModes.keys()))
         if  self._geometry.supports_mode_group(mode.group):
             self._selectedIndex = index
         else:
@@ -145,7 +145,7 @@ class ModeSelector(object):
 
     def reportAvailableModes(self):
         result = ''
-        indecis = self._modelist.keys()
+        indecis = list(self._modelist.keys())
         indecis.sort()
         for index in indecis:
             mode = self._modelist[index]
@@ -193,7 +193,7 @@ class VliegParameterManager(object):
         self._trackedParameters = []
 
         # Overide parameters that are unchangable for this diffractometer
-        for (name, value) in self._geometry.fixed_parameters.items():
+        for (name, value) in list(self._geometry.fixed_parameters.items()):
             if name not in self._parameters:
                 raise RuntimeError(
                     "The %s diffractometer geometry specifies a fixed "
@@ -268,8 +268,8 @@ class VliegParameterManager(object):
                 "To turn this off use a command like 'trackalpha 0'." % name)
 
         if not self.isParameterUsedInSelectedMode(name):
-            print ("WARNING: The parameter %s is not used in mode %i" %
-                   (name, self._modeSelector.getMode().index))
+            print(("WARNING: The parameter %s is not used in mode %i" %
+                   (name, self._modeSelector.getMode().index)))
         self._parameters[name] = value
 
     def isParameterUsedInSelectedMode(self, name):
@@ -296,14 +296,14 @@ class VliegParameterManager(object):
         return sorted(self.getParameterDict().keys())
 
     def setTrackParameter(self, name, switch):
-        if not name in self._parameters.keys():
+        if not name in list(self._parameters.keys()):
             raise DiffcalcException("No fixed parameter %s is used by the "
                                     "diffraction calculator" % name)
         if not name in self._trackableParameters:
             raise DiffcalcException("Parameter %s is not trackable" % name)
         if not self._isParameterChangeable(name):
-            print ("WARNING: Parameter %s is not used in mode %i" %
-                   (name, self._mode.index))
+            print(("WARNING: Parameter %s is not used in mode %i" %
+                   (name, self._mode.index)))
         if switch:
             if name not in self._trackedParameters:
                 self._trackedParameters.append(name)

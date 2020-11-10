@@ -37,7 +37,7 @@ class WillmottHklCommands(object):
         """
         name = getNameFromScannableOrString(scn_or_string)
         self._hklcalc.constraints.constrain(name)
-        print self._report_constraints()
+        print(self._report_constraints())
 
     @command
     def uncon(self, scn_or_string):
@@ -45,13 +45,13 @@ class WillmottHklCommands(object):
         """
         name = getNameFromScannableOrString(scn_or_string)
         self._hklcalc.constraints.unconstrain(name)
-        print self._report_constraints()
+        print(self._report_constraints())
 
     @command
     def cons(self):
         """cons -- list available constraints and values
         """
-        print self._report_constraints()
+        print(self._report_constraints())
 
     def _report_constraints(self):
         return (self._hklcalc.constraints.build_display_table_lines() + '\n\n' +

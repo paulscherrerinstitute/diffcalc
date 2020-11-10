@@ -17,7 +17,7 @@
 ###
 
 
-from __future__ import absolute_import
+
 
 import os, sys
 
@@ -58,7 +58,7 @@ if GDA:
     var_folder = LocalProperties.get("gda.var")
     diffcalc_persistance_path = os.path.join(var_folder, 'diffcalc')
     if not os.path.exists(diffcalc_persistance_path):
-        print "Making diffcalc var folder:'%s'" % diffcalc_persistance_path
+        print("Making diffcalc var folder:'%s'" % diffcalc_persistance_path)
         os.makedirs(diffcalc_persistance_path)
     settings.ubcalc_persister = UBCalculationJSONPersister(diffcalc_persistance_path, YouStateEncoder)
 # else: should have been set if outside GDA

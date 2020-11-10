@@ -112,7 +112,7 @@ class DiffractometerScannableGroup(ScannableMotionBase):
             raise ValueError('Wrong number of inputs')
         try:
             (hkl, params) = self.diffcalc_module.angles_to_hkl(pos)
-        except Exception, e:
+        except Exception as e:
             return "Error: %s" % getMessageFromException(e)
         width = max(len(k) for k in params)
 

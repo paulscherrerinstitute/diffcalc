@@ -36,11 +36,11 @@ from gda.device.scannable import ScannableMotionWithScannableFieldsBaseTest
 
 
 def connect_to_socket(host, port):
-    print "Connecting to %s on port %d" % (host, port)
+    print("Connecting to %s on port %d" % (host, port))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.connect((host, port))
-    print "Connected"
+    print("Connected")
     socketfile = sock.makefile('rw', 0)
     return socketfile
 
@@ -94,7 +94,7 @@ class MoveThread(threading.Thread):
 
     def update(self):
         pos = self.profile.getPosition()
-        d = dict(zip(map(str, self.axisNames), pos))
+        d = dict(list(zip(list(map(str, self.axisNames)), pos)))
         if self.socketfile:
             self.socketfile.write(repr(d) + '\n')
 
@@ -119,8 +119,8 @@ class VrmlModelDriver(ScannableMotionWithScannableFieldsBaseTest):
             try:
                 self.connect()
             except socket.error:
-                print "Failed to connect to %s:%r" % (self.host, PORT)
-                print "Connect with: %s.connect()" % self.name
+                print("Failed to connect to %s:%r" % (self.host, PORT))
+                print("Connect with: %s.connect()" % self.name)
 
     def connect(self):
         self.socketfile = connect_to_socket(self.host, PORT)
@@ -141,7 +141,7 @@ class VrmlModelDriver(ScannableMotionWithScannableFieldsBaseTest):
         if self.isBusy():
             raise Exception(self.name + ' is already moving')
         if self.verbose:
-            print self.name + ".rawAsynchronousMoveTo(%r)" % targetList
+            print(self.name + ".rawAsynchronousMoveTo(%r)" % targetList)
 
         for i, target in enumerate(targetList):
             if target is None:

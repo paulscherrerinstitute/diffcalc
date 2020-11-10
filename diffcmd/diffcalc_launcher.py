@@ -38,18 +38,18 @@ def main():
         exit(0)      
     
     if not args.make_manuals and not args.module:   
-        print "A module name should be provided. Choose one of:"
+        print("A module name should be provided. Choose one of:")
         print_available_modules(module_names)
         exit(0)
         
     if args.make_manuals:
         if args.module:
-            print "When building the manuals no module should be given"
+            print("When building the manuals no module should be given")
             exit(1)
         args.module = MODULE_FOR_MANUALS
         
     if not args.make_manuals and args.module not in module_names:
-        print "The provided argument '%s' is not one of:" % args.module
+        print("The provided argument '%s' is not one of:" % args.module)
         print_available_modules(module_names)
         exit(1)
     
@@ -69,7 +69,7 @@ def main():
     iflag = '' if args.non_interactive else '-i'    
     cmd = cmd + ' ' + ' '.join([iflag, diffcmd_start_path, args.module, str(args.debug)])
    
-    print 'Running: ' + cmd
+    print('Running: ' + cmd)
     rc = subprocess.call(cmd, env=env, shell=True)
     exit(rc)
 
@@ -78,7 +78,7 @@ def print_available_modules(module_names):
     lines = []
     for m in sorted(module_names):
         lines.append('   ' + m)
-    print '\n'.join(lines)
+    print('\n'.join(lines))
 
 
 if __name__ == '__main__':

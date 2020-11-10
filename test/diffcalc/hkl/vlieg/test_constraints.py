@@ -46,7 +46,7 @@ class TestModeSelector(object):
         pass
 
     def testShowAvailableModes(self):
-        print self.ms.reportAvailableModes()
+        print(self.ms.reportAvailableModes())
 
 
 class TestParameterManager(object):
@@ -78,10 +78,10 @@ class TestParameterManager(object):
         self.hw.get_position.return_value = 888, 11, 999
         assert self.pm.get_constraint('alpha') == 11
 
-        print self.pm.reportAllParameters()
-        print "**"
-        print self.ms.reportCurrentMode()
-        print self.pm.reportParametersUsedInCurrentMode()
+        print(self.pm.reportAllParameters())
+        print("**")
+        print(self.ms.reportCurrentMode())
+        print(self.pm.reportParametersUsedInCurrentMode())
 
         self.pm.setTrackParameter('alpha', False)
         assert not self.pm.isParameterTracked('alpha')

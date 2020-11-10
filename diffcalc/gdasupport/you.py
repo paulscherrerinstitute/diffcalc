@@ -10,7 +10,8 @@ from diffcalc.dc import dcyou as _dc
 from diffcalc.dc.help import format_command_help
 from diffcalc.gdasupport.scannable.sr2 import Sr2
 from diffcalc.gdasupport.scannable.qtrans import Qtrans
-reload(_dc)
+import importlib
+importlib.reload(_dc)
 from diffcalc.dc.dcyou import *  # @UnusedWildImport
 from diffcalc import settings
 

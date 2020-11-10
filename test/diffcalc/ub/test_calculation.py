@@ -64,7 +64,7 @@ class TestUBCalculationWithYouStrategy():
         names = 'm', 'd', 'n', 'e', 'c', 'p'
         hardware.get_axes_names.return_value = names
         self.tmpdir = tempfile.mkdtemp()
-        print self.tmpdir
+        print(self.tmpdir)
         settings.hardware = hardware
         settings.geometry = geometry
         self.ubcalc = UBCalculation(UBCalculationJSONPersister(self.tmpdir, UBCalcStateEncoder),

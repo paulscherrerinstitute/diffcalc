@@ -77,7 +77,7 @@ class HklOffset(ScannableMotionWithScannableFieldsBase):
             pol, az = hkl[-2] * TORAD, hkl[-1] * TORAD
             hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*self._hkl_reference, pol=pol, az=az)
             (pos, _) = self._diffcalc.hkl_to_angles(*hkl_offset)
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             if DEBUG:
                 raise
             else:
@@ -113,7 +113,7 @@ class HklOffset(ScannableMotionWithScannableFieldsBase):
         hkl_offset = self._diffcalc._ub.ubcalc.calc_hkl_offset(*hkl[:3], pol=pol, az=az)
         (pos, params) = self._diffcalc.hkl_to_angles(*hkl_offset)
 
-        width = max(len(k) for k in (params.keys() + list(self.diffhw.getInputNames())))
+        width = max(len(k) for k in (list(params.keys()) + list(self.diffhw.getInputNames())))
         fmt = '  %' + str(width) + 's : % 9.4f'
 
         lines = ['simulated hkl: %9.4f  %.4f  %.4f' % (hkl_offset[0],hkl_offset[1],hkl_offset[2]),
@@ -134,7 +134,7 @@ class HklOffset(ScannableMotionWithScannableFieldsBase):
         try:
             (hkl_pos, params) = self._diffcalc.angles_to_hkl(pos)
             pol, az, _ = self._diffcalc._ub.ubcalc.calc_offset_for_hkl(hkl_pos, self._hkl_reference)
-        except Exception, e:
+        except Exception as e:
             return "<hkloffser: %s>" % getMessageFromException(e)
 
         width = max(len(k) for k in params)

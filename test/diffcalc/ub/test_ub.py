@@ -22,6 +22,7 @@ import os.path
 import pytest
 from math import atan, sqrt
 from nose import SkipTest
+import importlib
 
 try:
     from numpy import matrix
@@ -67,7 +68,7 @@ class _UBCommandsBase():
         self._refineub_matrix = matrix('0.70711   0.70711   0.00000; -0.70711   0.70711   0.00000; 0.00000   0.00000   1.00000')
 
         from diffcalc.ub import ub
-        reload(ub)
+        importlib.reload(ub)
         self.ub = ub
         #self.ub.ubcalc = ub.ubcalc
         prepareRawInput([])
@@ -781,7 +782,7 @@ class TestUbCommandsJsonPersistence(TestUBCommandsYou):
 
     def _createPersister(self):
         self.tmpdir = tempfile.mkdtemp()
-        print self.tmpdir
+        print(self.tmpdir)
         self.persister = UBCalculationJSONPersister(self.tmpdir, UBCalcStateEncoder)
         f = open(os.path.join(self.tmpdir, 'unexpected_file'), 'w')
         f.close()

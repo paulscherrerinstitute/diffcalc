@@ -51,10 +51,10 @@ if '_fivec' in globals() and 'en' in globals():
     # with axes named: delta, gam, eta, chi, phi.
     # Ensure that these five Scannables exist.
     # There must also be Scannable en for moving and reading the energy
-    print "Diffcalc using predefined _fivec and en Scannables"
+    print("Diffcalc using predefined _fivec and en Scannables")
 else:
     ### Create dummy scannables ###
-    print "Diffcalc creating dummy Scannables as _fivec and en were not found"
+    print("Diffcalc creating dummy Scannables as _fivec and en were not found")
     delta = Dummy('delta')
     gam = Dummy('gam')
     eta = Dummy('eta')
@@ -62,7 +62,7 @@ else:
     phi = Dummy('phi')
     _fivec = ScannableGroup('_fivec', (delta, gam, eta, chi, phi))
     if not ('en' in globals()):
-        print "Diffcalc creating dummy Scannables as en was not found"
+        print("Diffcalc creating dummy Scannables as en was not found")
         en = Dummy('en')
         en.level = 3
     #set_default_limits()
@@ -82,7 +82,7 @@ from diffcalc.gdasupport.you import *  # @UnusedWildImport
 
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
  
   

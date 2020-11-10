@@ -31,24 +31,24 @@ TORAD = pi / 180
 
 
 def connect_to_socket(host, port):
-    print "Connecting to %s on port %d" % (host, port)
+    print("Connecting to %s on port %d" % (host, port))
     connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print "Connected"
+    print("Connected")
     connection.connect((host, port))
     socketfile = connection.makefile('rw', 0)
     return socketfile
 
 
 def serve_socket_connection(port):
-    print ("Serving connection on all interfaces on %s port %d" %
-           (socket.gethostname(), port))
+    print(("Serving connection on all interfaces on %s port %d" %
+           (socket.gethostname(), port)))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((socket.gethostname(), port))
     sock.listen(1)
     time.sleep(1)
     (connection, addr) = sock.accept()
-    print 'Connected from ', addr, ' accepted'
+    print('Connected from ', addr, ' accepted')
     socket_file = connection.makefile('rw', 0)  # no buffering
     return socket_file
 
@@ -78,10 +78,10 @@ class SceneUpdatingThread(threading.Thread):
         while True:
             msg = socket_file.readline()
             if msg == '':
-                print '***Socket closed'
+                print('***Socket closed')
                 socket_file = serve_socket_connection(PORT)
                 continue
-            print msg.strip()
+            print(msg.strip())
             d = eval(msg.strip())  # msg should be a dictionary representation
             for axisname in d:
                 self.set_axis_rotation(axisname, d[axisname])
@@ -99,8 +99,8 @@ class SceneUpdatingThread(threading.Thread):
 class Animator(object):
 
     def __init__(self, filename, axisnames):
-        print "filename : " + filename
-        print "    axes : " + ' '.join(axisnames)
+        print("filename : " + filename)
+        print("    axes : " + ' '.join(axisnames))
         # Create viewer
         self.myWindow = SoGui.init(sys.argv[0])  # @UndefinedVariable
         if self.myWindow is None: sys.exit(1)

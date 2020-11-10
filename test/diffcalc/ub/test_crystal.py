@@ -51,12 +51,12 @@ class TestCrystalUnderTest(object):
                 continue
             cut = CrystalUnderTest('tc', *sess.lattice)
             desired = matrix(sess.bmatrix)
-            print desired.tolist()
+            print(desired.tolist())
             answer = cut.B
-            print answer.tolist()
+            print(answer.tolist())
             note = "Incorrect B matrix calculation for scenario " + sess.name
             mneq_(answer, desired, 4, note=note)
 
     def test__str__(self):
         cut = CrystalUnderTest("HCl", 1, 2, 3, 4, 5, 6)
-        print cut.__str__()
+        print(cut.__str__())

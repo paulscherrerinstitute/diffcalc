@@ -16,11 +16,11 @@ GEOMETRIES = ['sixc', 'fivec', 'fourc', 'i16', 'i21']
 
 
 def echo(cmd):
-    print "\n>>> " + str(cmd)
+    print("\n>>> " + str(cmd))
 
     
 def print_heading(s):
-    print '\n' + '=' * len(s) + '\n' + s + '\n' + '=' * len(s)
+    print('\n' + '=' * len(s) + '\n' + s + '\n' + '=' * len(s))
 
 
 class Demo(object):
@@ -147,4 +147,4 @@ class Demo(object):
             func = elements.pop(0)
             result = func(*elements)
             if result:
-                print result
+                print(result)

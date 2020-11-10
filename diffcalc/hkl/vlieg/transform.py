@@ -95,7 +95,7 @@ transformsFromSector = {
 }
 
 sectorFromTransforms = {}
-for k, v in transformsFromSector.iteritems():
+for k, v in transformsFromSector.items():
     sectorFromTransforms[v] = k
 
 
@@ -148,7 +148,7 @@ class VliegTransformSelector(object):
             raise ValueError('%s is not a recognised transform. Try a, b or c'
                              % transformName)
         if transformName in self.transforms:
-            print "WARNING, transform %s is already selected"
+            print("WARNING, transform %s is already selected")
         else:
             self.setTransforms(self.transforms + [transformName])
 
@@ -161,7 +161,7 @@ class VliegTransformSelector(object):
             new.remove(transformName)
             self.setTransforms(new)
         else:
-            print "WARNING, transform %s was not selected" % transformName
+            print("WARNING, transform %s was not selected" % transformName)
 
     def addAutoTransorm(self, transformOrSector):
         '''
@@ -180,7 +180,7 @@ class VliegTransformSelector(object):
                 self.autosectors = []
                 self.autotransforms.append(transform)
             else:
-                print "WARNING: %s is already set to auto apply" % transform
+                print("WARNING: %s is already set to auto apply" % transform)
         elif type(transformOrSector) == int:
             sector = transformOrSector
             if not 0 <= sector <= 7:
@@ -189,7 +189,7 @@ class VliegTransformSelector(object):
                 self.autotransforms = []
                 self.autosectors.append(sector)
             else:
-                print "WARNING: %i is already set to auto apply" % sector
+                print("WARNING: %i is already set to auto apply" % sector)
         else:
             raise ValueError("Input must be 'a', 'b' or 'c', "
                              "or 1,2,3,4,5,6 or 7.")
@@ -203,7 +203,7 @@ class VliegTransformSelector(object):
             if transform in self.autotransforms:
                 self.autotransforms.remove(transform)
             else:
-                print "WARNING: %s is not set to auto apply" % transform
+                print("WARNING: %s is not set to auto apply" % transform)
         elif type(transformOrSector) == int:
             sector = transformOrSector
             if not 0 <= sector <= 7:
@@ -211,7 +211,7 @@ class VliegTransformSelector(object):
             if sector in self.autosectors:
                 self.autosectors.remove(sector)
             else:
-                print "WARNING: %s is not set to auto apply" % sector
+                print("WARNING: %s is not set to auto apply" % sector)
         else:
             raise ValueError("Input must be 'a', 'b' or 'c', "
                              "or 1,2,3,4,5,6 or 7.")
@@ -286,11 +286,11 @@ class VliegTransformSelector(object):
                 "Autosector could not find a sector (from %s) to move %s into "
                 "limits." % (self.autosectors, str(pos)))
         if len(okaysectors) > 1:
-            print ("WARNING: Autosector found multiple sectors that would "
-                   "move %s to move into limits: %s" % (str(pos), okaysectors))
+            print(("WARNING: Autosector found multiple sectors that would "
+                   "move %s to move into limits: %s" % (str(pos), okaysectors)))
 
-        print ("INFO: Autosector changed sector from %i to %i" %
-               (self.sector, okaysectors[0]))
+        print(("INFO: Autosector changed sector from %i to %i" %
+               (self.sector, okaysectors[0])))
         self.sector = okaysectors[0]
         return okaypositions[0]
 
@@ -309,12 +309,12 @@ class VliegTransformSelector(object):
                 "Autosector could not find a sector (from %r) to move %r into "
                 "limits." % (self.autosectors, pos))
         if len(okaytransforms) > 1:
-            print ("WARNING: Autosector found multiple sectors that would "
+            print(("WARNING: Autosector found multiple sectors that would "
                    "move %s to move into limits: %s" %
-                   (repr(pos), repr(okaytransforms)))
+                   (repr(pos), repr(okaytransforms))))
 
-        print ("INFO: Autosector changed selected transforms from %r to %r" %
-               (self.transforms, okaytransforms[0]))
+        print(("INFO: Autosector changed selected transforms from %r to %r" %
+               (self.transforms, okaytransforms[0])))
         self.setTransforms(okaytransforms[0])
         return okaypositions[0]
 
@@ -403,7 +403,7 @@ class TransformCommands(object):
     @command
     def transform(self):
         """transform  -- show transform configuration"""
-        print self._sectorSelector.__repr__()
+        print(self._sectorSelector.__repr__())
 
     @command
     def transforma(self, *args):
@@ -426,7 +426,7 @@ class TransformCommands(object):
 
     def _transform(self, commandName, transformName, args):
         if len(args) == 0:
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
             return
         # get name
         if len(args) != 1:
@@ -445,28 +445,28 @@ class TransformCommands(object):
             ss.removeAutoTransform(transformName)
         else:
             raise TypeError()
-        print self._sectorSelector.__repr__()
+        print(self._sectorSelector.__repr__())
 
     @command
     def sector(self, sector=None):
         """sector {0-7} -- Select or display sector (a la Spec)
         """
         if sector is None:
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
         else:
             if type(sector) is not int and not (0 <= sector <= 7):
                 raise TypeError()
             self._sectorSelector.setSector(sector)
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
 
     @command
     def autosector(self, *args):
         """autosector [None] [0-7] [0-7]... -- Set sectors that might be automatically applied""" #@IgnorePep8
         if len(args) == 0:
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
         elif len(args) == 1 and args[0] is None:
             self._sectorSelector.setAutoSectors([])
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
         else:
             sectorList = []
             for arg in args:
@@ -474,7 +474,7 @@ class TransformCommands(object):
                     raise TypeError()
                 sectorList.append(arg)
             self._sectorSelector.setAutoSectors(sectorList)
-            print self._sectorSelector.__repr__()
+            print(self._sectorSelector.__repr__())
 
 
 

@@ -232,7 +232,7 @@ class TestVliegTransformSelector(object):
     def testAddAutoTransormWithTransforms(self):
         self.ss.autosectors = [1, 2, 3, 4, 5]
         self.ss.addAutoTransorm('a')
-        print "Should now print a warning..."
+        print("Should now print a warning...")
         self.ss.addAutoTransorm('a')  # twice
         self.ss.addAutoTransorm('b')
         assert (self.ss.autosectors, [])
@@ -241,7 +241,7 @@ class TestVliegTransformSelector(object):
     def testAddAutoTransormWithSectors(self):
         self.ss.autotransforms = ['a', 'c']
         self.ss.addAutoTransorm(2)
-        print "Should now print a warning..."
+        print("Should now print a warning...")
         self.ss.addAutoTransorm(2)  # twice
         self.ss.addAutoTransorm(3)
         assert (self.ss.autosectors, [2, 3])
@@ -254,15 +254,15 @@ class TestVliegTransformSelector(object):
 
     def test__repr__(self):
         self.ss.setSector(0)
-        print "************************"
-        print self.ss
-        print "************************"
+        print("************************")
+        print(self.ss)
+        print("************************")
         self.ss.setTransforms('a')
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
         self.ss.setTransforms(('a', 'b', 'c'))
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
 
 
 class TestSectorSelectorAutoCode(object):
@@ -321,7 +321,7 @@ class TestSectorSelectorAutoCode(object):
 
     def testAutoTransformPositionWithSectors(self):
         self.ss.addAutoTransorm(2)
-        print "Should print 'INFO: Autosector changed sector from 0 to 2':"
+        print("Should print 'INFO: Autosector changed sector from 0 to 2':")
         result = self.ss.autoTransformPositionBySector(self.pos)
         assert (result == self.pos_in2)
         assert (self.ss.sector, 2)
@@ -329,8 +329,8 @@ class TestSectorSelectorAutoCode(object):
     def testAutoTransformPositionWithSectorChoice(self):
         self.ss.addAutoTransorm(2)
         self.ss.addAutoTransorm(3)
-        print "Should print 'WARNING: Autosector found multiple sectors...':"
-        print "Should print 'INFO: Autosector changed sector from 0 to 2':"
+        print("Should print 'WARNING: Autosector found multiple sectors...':")
+        print("Should print 'INFO: Autosector changed sector from 0 to 2':")
         result = self.ss.autoTransformPositionBySector(self.pos)
         assert (result == self.pos_in2)
         assert (self.ss.sector, 2)
@@ -340,7 +340,7 @@ class TestSectorSelectorAutoCode(object):
         self.ss.addAutoTransorm(1)
         self.ss.addAutoTransorm(4)
         self.ss.addAutoTransorm(5)
-        print "Should print 'INFO: Autosector changed sector from 0 to 2':"
+        print("Should print 'INFO: Autosector changed sector from 0 to 2':")
         with pytest.raises(Exception):
             self.ss.autoTransformPositionBySector(self.pos)
         #self.ss.autoTransformPositionBySector(self.pos)
@@ -357,7 +357,7 @@ class TestSectorSelectorAutoCode(object):
 
     def testAutoTransformPositionWithTransforms(self):
         self.ss.addAutoTransorm('a')
-        print "Should print 'INFO: ':"
+        print("Should print 'INFO: ':")
         result = self.ss.autoTransformPositionByTransforms(self.pos)
         assert (result == self.pos_in2)
         assert (self.ss.sector, 2)
@@ -365,8 +365,8 @@ class TestSectorSelectorAutoCode(object):
     def testAutoTransformPositionWithTansformsChoice(self):
         self.ss.addAutoTransorm('a')
         self.ss.addAutoTransorm('c')
-        print "Should print 'WARNING:':"
-        print "Should print 'INFO: ':"
+        print("Should print 'WARNING:':")
+        print("Should print 'INFO: ':")
         result = self.ss.autoTransformPositionByTransforms(self.pos)
         assert (result == self.pos_in2)
         assert (self.ss.sector, 2)
@@ -375,7 +375,7 @@ class TestSectorSelectorAutoCode(object):
         self.ss.addAutoTransorm('a')
         assert (self.ss.transformPosition(self.pos) == self.pos_in2)
         assert (self.ss.sector, 2)
-        print "Should not print 'INFO...'"
+        print("Should not print 'INFO...'")
         assert (self.ss.transformPosition(self.pos) == self.pos_in2)
         assert (self.ss.sector, 2)
 
@@ -383,31 +383,31 @@ class TestSectorSelectorAutoCode(object):
         self.ss.addAutoTransorm(2)
         assert (self.ss.transformPosition(self.pos) == self.pos_in2)
         assert (self.ss.sector, 2)
-        print "Should not print 'INFO...'"
+        print("Should not print 'INFO...'")
         assert (self.ss.transformPosition(self.pos) == self.pos_in2)
         assert (self.ss.sector, 2)
 
     def test__repr__(self):
         self.ss.setSector(0)
-        print "************************"
-        print self.ss
-        print "************************"
+        print("************************")
+        print(self.ss)
+        print("************************")
         self.ss.setTransforms('a')
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
         self.ss.setTransforms(('a', 'b', 'c'))
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
 
         self.ss.addAutoTransorm(1)
         self.ss.addAutoTransorm(2)
         self.ss.addAutoTransorm(3)
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
         self.ss.addAutoTransorm('a')
         self.ss.addAutoTransorm('c')
-        print self.ss
-        print "************************"
+        print(self.ss)
+        print("************************")
 
 
 class TestTransforms(object):

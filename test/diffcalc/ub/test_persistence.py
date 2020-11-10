@@ -26,7 +26,7 @@ from nose.tools import eq_  # @UnresolvedImport
 try:
     from gda.configuration.properties import LocalProperties
 except ImportError:
-    print "Could not import LocalProperties to configure database locations."
+    print("Could not import LocalProperties to configure database locations.")
 
 from diffcalc.ub.persistence import UbCalculationNonPersister, UBCalculationJSONPersister
 from diffcalc.ub.calcstate import UBCalcStateEncoder
@@ -36,9 +36,9 @@ def prepareEmptyGdaVarFolder():
     vartest_dir = os.path.join(os.getcwd(), 'var_test')
     LocalProperties.set('gda.var', vartest_dir)
     if os.path.exists(vartest_dir):
-        print "Removing existing gda.var: ", vartest_dir
+        print("Removing existing gda.var: ", vartest_dir)
         shutil.rmtree(vartest_dir)
-    print "Creating gda.var: ", vartest_dir
+    print("Creating gda.var: ", vartest_dir)
     os.mkdir(vartest_dir)
 
 
@@ -55,7 +55,7 @@ class TestUBCalculationJSONPersister(object):
 
     def setup_method(self):
         self.tmpdir = tempfile.mkdtemp()
-        print self.tmpdir
+        print(self.tmpdir)
         self.persister = UBCalculationJSONPersister(self.tmpdir, UBCalcStateEncoder)
         f = open(os.path.join(self.tmpdir, 'unexpected_file'), 'w')
         f.close()

@@ -67,5 +67,5 @@ class AzihklClass(ScannableBase):
         try:
             ref_matrix = ubcalc.n_hkl
             return ref_matrix.T.tolist()[0]
-        except DiffcalcException, e:
-            print e
+        except DiffcalcException as e:
+            print(e)

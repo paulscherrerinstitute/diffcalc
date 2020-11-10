@@ -8,11 +8,12 @@ import diffcalc.hkl.willmott.calc
 
 # reload to aid testing only
 from diffcalc.ub import ub as _ub
-reload(_ub)
+import importlib
+importlib.reload(_ub)
 from diffcalc import hardware as _hardware
 #reload(_hardware)
 from diffcalc.hkl.you import hkl as _hkl
-reload(_hkl)
+importlib.reload(_hkl)
 
 from diffcalc.ub.ub import *  # @UnusedWildImport
 from diffcalc.hardware import *  # @UnusedWildImport

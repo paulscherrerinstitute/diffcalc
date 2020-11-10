@@ -54,7 +54,7 @@ class TestConstraintManager:
         self.cm.constrain('eta')
         self.cm.set_constraint('qaz', 1.234)
         self.cm.set_constraint('eta', 99.)
-        print '\n'.join(self.cm.build_display_table_lines())
+        print('\n'.join(self.cm.build_display_table_lines()))
         eq_(self.cm.build_display_table_lines(),
             ['    DET             REF             SAMP',
              '    -----------     -----------     -----------',
@@ -132,7 +132,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('delta')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0], (
                 "Delta could not be constrained. First un-constrain one of the"
                 "\nangles alpha, chi or phi (with 'uncon')"))
@@ -144,7 +144,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('delta')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Delta could not be constrained. First un-constrain one of the"
                 "\nangles eta, chi or phi (with 'uncon')")
@@ -183,7 +183,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('alpha'),
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Alpha could not be constrained. First un-constrain one of the"
                 "\nangles delta, chi or phi (with 'uncon')")
@@ -195,7 +195,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('delta')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Delta could not be constrained. First un-constrain one of the"
                 "\nangles eta, chi or phi (with 'uncon')")
@@ -247,7 +247,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('phi')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Phi could not be constrained. First un-constrain one of the"
                 "\nangles delta, eta or chi (with 'uncon')")
@@ -259,7 +259,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('phi')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Phi could not be constrained. First un-constrain one of the"
                 "\nangles alpha, eta or chi (with 'uncon')")
@@ -271,7 +271,7 @@ class TestConstraintManager:
         try:
             self.cm.constrain('phi')
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Phi could not be constrained. First un-constrain one of the"
                 "\nangles mu, eta or chi (with 'uncon')")
@@ -289,7 +289,7 @@ class TestConstraintManager:
 
     def test_report_constraints_one_with_novalue(self):
         self.cm.constrain(NUNAME)
-        print '!   2 more constraints required\n!   %s: ---' % NUNAME
+        print('!   2 more constraints required\n!   %s: ---' % NUNAME)
         eq_(self.cm.report_constraints_lines(),
             ['!   2 more constraints required',
              '!   %s  : ---' % NUNAME])
@@ -432,14 +432,14 @@ class TestConstraintManager:
         try:
             self.cm.set_constraint('not_a_constraint', object())
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0], "Could not set not_a_constraint. This is not an "
                 "available constraint.")
 
         try:
             self.cm.set_constraint('delta', object())
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Could not set delta. This is not currently constrained.")
 
@@ -447,7 +447,7 @@ class TestConstraintManager:
         try:
             self.cm.set_constraint('a_eq_b', object())
             assert False
-        except DiffcalcException, e:
+        except DiffcalcException as e:
             eq_(e.args[0],
                 "Could not set a_eq_b. This constraint takes no value.")
 
@@ -525,7 +525,7 @@ class TestConstraintManagerWithFourCircles:
 
     def test_build_initial_display_table_with_fixed_detector(self):
         self.cm = YouConstraintManager({NUNAME: 0})
-        print self.cm.build_display_table_lines()
+        print(self.cm.build_display_table_lines())
         eq_(self.cm.build_display_table_lines(),
             ['    REF             SAMP',
              '    -----------     -----------',
@@ -539,7 +539,7 @@ class TestConstraintManagerWithFourCircles:
         
     def test_build_initial_display_table_with_fixed_sample(self):
         self.cm = YouConstraintManager({'mu': 0})
-        print self.cm.build_display_table_lines()
+        print(self.cm.build_display_table_lines())
         eq_(self.cm.build_display_table_lines(),
             ['    DET             REF             SAMP',
              '    -----------     -----------     -----------',
@@ -553,7 +553,7 @@ class TestConstraintManagerWithFourCircles:
         
     def test_build_initial_display_table_for_four_circle(self):
         self.cm = YouConstraintManager({'mu': 0, NUNAME: 0})
-        print self.cm.build_display_table_lines()
+        print(self.cm.build_display_table_lines())
         eq_(self.cm.build_display_table_lines(),
             ['    REF             SAMP',
              '    -----------     -----------',

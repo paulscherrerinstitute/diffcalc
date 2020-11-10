@@ -100,7 +100,7 @@ def _command_list_to_table_cells(command_list):
     row_list = []
     for obj in command_list:
 
-        if isinstance(obj, basestring):  # group heading
+        if isinstance(obj, str):  # group heading
             row_list.append([obj.upper()])
 
         else:  # individual command

@@ -288,10 +288,10 @@ class YouPosition(AbstractPosition):
         return (self.mu, self.delta, self.nu, self.eta, self.chi, self.phi)
 
     def todict(self):
-        return dict(zip(self.get_names(), self.totuple()))
+        return dict(list(zip(self.get_names(), self.totuple())))
 
     def __str__(self):
-        fmt_tuple = sum(zip(self.get_names(), self.totuple()), ()) + (self.unit,)
+        fmt_tuple = sum(list(zip(self.get_names(), self.totuple())), ()) + (self.unit,)
         return ("YouPosition(%s: %r %s: %r %s: %r %s: %r %s: %r  %s: %r) in %s"
                 % fmt_tuple)
     

@@ -24,7 +24,7 @@ class matrix(object):
     def __init__(self, a):
         if isinstance(a, Jama.Matrix):
             self.m = a
-        elif isinstance(a, basestring):
+        elif isinstance(a, str):
             l = []
             for row in a.strip().split(';'):
                 l.append([float(element)

@@ -22,7 +22,7 @@ from diffcalc.util import DiffcalcException
 def filter_dict(d, keys):
     """Return a copy of d containing only keys that are in keys"""
     ##return {k: d[k] for k in keys} # requires Python 2.6
-    return dict((k, d[k]) for k in keys if k in d.keys())
+    return dict((k, d[k]) for k in keys if k in list(d.keys()))
 
 
 ref_constraints = ('betain', 'betaout', 'bin_eq_bout')
@@ -55,7 +55,7 @@ class WillmottConstraintManager(object):
     @property
     def constrained_names(self):
         """ordered tuple of constained circles"""
-        names = self.all.keys()
+        names = list(self.all.keys())
         names.sort(key=lambda name: list(all_constraints).index(name))
         return tuple(names)
 
@@ -88,7 +88,7 @@ class WillmottConstraintManager(object):
     def _report_constraints(self):
         if not self.reference:
             return "!!! No reference constraint set"
-        name, val = self.reference.items()[0]
+        name, val = list(self.reference.items())[0]
         if name in valueless_constraints:
             return "    %s" % name
         else:
@@ -119,7 +119,7 @@ class WillmottConstraintManager(object):
 
     def _constrain_reference(self, name):
         if self.reference:
-            constrained_name = self.reference.keys()[0]
+            constrained_name = list(self.reference.keys())[0]
             del self._constrained[constrained_name]
             self._constrained[name] = None
             return '%s constraint replaced.' % constrained_name.capitalize()
@@ -138,7 +138,7 @@ class WillmottConstraintManager(object):
             raise DiffcalcException(
                 'Could not %(verb)s %(name)s as this is not an available '
                 'constraint.' % locals())
-        elif name not in self.all.keys():
+        elif name not in list(self.all.keys()):
             raise DiffcalcException(
                 'Could not %(verb)s %(name)s as this is not currently '
                 'constrained.' % locals())

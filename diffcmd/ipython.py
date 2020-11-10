@@ -155,8 +155,8 @@ def tokenify(s):
     # difference.
 
     if ',' in comma_finder.split(s):
-        print COMMA_USAGE_HELP
-        print "(string was: %s)" % s
+        print(COMMA_USAGE_HELP)
+        print("(string was: %s)" % s)
         raise SyntaxError('unexpected comma')
     
     # ignore comment  
@@ -181,7 +181,7 @@ def parse(s, d):
     tokens = tokenify(s)
     for tok in tokens:
         if tok in MATH_OPERATORS:
-            print MATH_OPERATOR_USAGE_HELP
+            print(MATH_OPERATOR_USAGE_HELP)
             raise SyntaxError('could not evaluate: "%s"' % tok)
     
     
@@ -279,16 +279,16 @@ def magic_commands(global_namespace_dict):
         """Diffcalc help for iPython
         """
         if s == '':
-            print _DEFAULT_HELP
+            print(_DEFAULT_HELP)
         elif s == 'hkl':
             # Use help injected into hkl object
-            print Hkl.dynamic_docstring
+            print(Hkl.dynamic_docstring)
         elif s == 'ub':
             # Use help injected into ub command
-            print command_map['ub'].__doc__
+            print(command_map['ub'].__doc__)
         elif s in command_map:
-            print "%s (diffcalc command):" %s
-            print command_map[s].__doc__
+            print("%s (diffcalc command):" %s)
+            print(command_map[s].__doc__)
         else:
             exec('pythons_help(%s)' %s, gnd)
 

@@ -2,6 +2,7 @@ from startup._common_imports import *  # @UnusedWildImport
 
 from diffcalc.gdasupport.scannable.diffractometer import DiffractometerScannableGroup
 from startup.beamlinespecific.i21 import FourCircleI21, DiffractometerTPScannableGroup, TPScannableGroup
+import importlib
 
 try:
     from numpy import matrix
@@ -78,7 +79,7 @@ settings.energy_scannable_multiplier_to_get_KeV = ESMTGKeV
 from diffcalc.gdasupport.you import *  # @UnusedWildImport
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
  
 ### Load the last ub calculation used
@@ -90,7 +91,7 @@ def setLimitsAndCuts(delta_angle, eta_angle, chi_angle, phi_angle):
     ''' set motor limits for diffcalc, these are within the actual motor limits
     '''
     if not GDA:
-        print "INFO: diffcalc limits set in $diffcalc/startup/i21.py taken from http://confluence.diamond.ac.uk/pages/viewpage.action?pageId=51413586"
+        print("INFO: diffcalc limits set in $diffcalc/startup/i21.py taken from http://confluence.diamond.ac.uk/pages/viewpage.action?pageId=51413586")
         setmin(delta_angle, 0.0)
         setmax(delta_angle, 180.0) #default to diode delta limits
         setmin(chi_angle, -41.0)
@@ -102,7 +103,7 @@ def setLimitsAndCuts(delta_angle, eta_angle, chi_angle, phi_angle):
     #http://jira.diamond.ac.uk/browse/I21-361
     setcut(eta_angle, 0.0)
     setcut(phi_angle, -180.0)
-    print "Current hardware limits set to:"
+    print("Current hardware limits set to:")
     hardware()
 
 if GDA:
@@ -115,7 +116,7 @@ else:
 # Warning: this breaks the encapsulation provided by the diffcalc.dc.you public
 #          interface, and may be prone to breakage in future.
 
-print 'Creating i21 bespoke scannables:'
+print('Creating i21 bespoke scannables:')
 
 
 hkl_m5tth = Hkl('hkl_m5tth', _sc_m5tth, DiffractometerYouCalculator(_hw_m5tth, _tth_geometry))
@@ -150,7 +151,7 @@ def usedifftth_tp():
         usedifftth(True)
 
 def usem5tth(tp=None):
-    print '- setting hkl ---> hkl_m5tth'
+    print('- setting hkl ---> hkl_m5tth')
     global settings
     if tp:
         settings.hardware = _hw_m5tth_tp
@@ -165,7 +166,7 @@ def usem5tth(tp=None):
     # Create diffractometer scannable
     _diff_scn_name = _tth_geometry.name
     from diffcalc.dc import dcyou as _dc
-    reload(_dc)
+    importlib.reload(_dc)
     lastub()
 
     if tp:
@@ -202,14 +203,14 @@ def usem5tth(tp=None):
 
     # Custom scannables
     import startup.beamlinespecific.conic_scannables as _conic
-    reload(_conic)
+    importlib.reload(_conic)
     __main__.conic_h = _conic.conic_h
     __main__.conic_k = _conic.conic_k
     __main__.conic_l = _conic.conic_l
 
 
 def uselowq(tp=None):
-    print '- setting hkl ---> hkl_lowq'
+    print('- setting hkl ---> hkl_lowq')
     global settings
     if tp:
         settings.hardware = _hw_m5tth_tp
@@ -224,7 +225,7 @@ def uselowq(tp=None):
     # Create diffractometer scannable
     _diff_scn_name = _lowq_geometry.name
     from diffcalc.dc import dcyou as _dc
-    reload(_dc)
+    importlib.reload(_dc)
     lastub()
 
     if tp:
@@ -261,14 +262,14 @@ def uselowq(tp=None):
 
     # Custom scannables
     import startup.beamlinespecific.conic_scannables as _conic
-    reload(_conic)
+    importlib.reload(_conic)
     __main__.conic_h = _conic.conic_h
     __main__.conic_k = _conic.conic_k
     __main__.conic_l = _conic.conic_l
 
 
 def usehighq(tp=None):
-    print '- setting hkl ---> hkl_highq'
+    print('- setting hkl ---> hkl_highq')
     global settings
     if tp:
         settings.hardware = _hw_m5tth_tp
@@ -283,7 +284,7 @@ def usehighq(tp=None):
     # Create diffractometer scannable
     _diff_scn_name = _highq_geometry.name
     from diffcalc.dc import dcyou as _dc
-    reload(_dc)
+    importlib.reload(_dc)
     lastub()
 
     if tp:
@@ -320,14 +321,14 @@ def usehighq(tp=None):
 
     # Custom scannables
     import startup.beamlinespecific.conic_scannables as _conic
-    reload(_conic)
+    importlib.reload(_conic)
     __main__.conic_h = _conic.conic_h
     __main__.conic_k = _conic.conic_k
     __main__.conic_l = _conic.conic_l
 
 def usedifftth(tp=None):
     # sample chamber
-    print '- setting hkl ---> hkl_difftth'
+    print('- setting hkl ---> hkl_difftth')
     global settings
     if tp:
         settings.hardware = _hw_difftth_tp
@@ -343,7 +344,7 @@ def usedifftth(tp=None):
     _diff_scn_name = _tth_geometry.name
 
     from diffcalc.dc import dcyou as _dc
-    reload(_dc)
+    importlib.reload(_dc)
     lastub()
 
     if tp:
@@ -380,15 +381,15 @@ def usedifftth(tp=None):
 
     # Custom scannables
     import startup.beamlinespecific.conic_scannables as _conic
-    reload(_conic)
+    importlib.reload(_conic)
     __main__.conic_h = _conic.conic_h
     __main__.conic_k = _conic.conic_k
     __main__.conic_l = _conic.conic_l
 
 def usesim():
     # sample chamber
-    print '- setting hkl ---> hkl_sim'
-    print '-          en ---> simenergy'
+    print('- setting hkl ---> hkl_sim')
+    print('-          en ---> simenergy')
     global settings
     settings.hardware = _hw_sim
     settings.geometry = _tth_geometry
@@ -400,7 +401,7 @@ def usesim():
     import __main__
     _diff_scn_name = _tth_geometry.name
     from diffcalc.dc import dcyou as _dc
-    reload(_dc)
+    importlib.reload(_dc)
     lastub()
 
     _diff_scn = DiffractometerScannableGroup(_diff_scn_name, _dc, _sc_sim)
@@ -419,15 +420,15 @@ def usesim():
         __main__.ct = SimulatedCrystalCounter('ct', __main__.fourc, settings.geometry, __main__.wl)  # @UndefinedVariable
     # Custom scannables
     import startup.beamlinespecific.conic_scannables as _conic
-    reload(_conic)
+    importlib.reload(_conic)
     __main__.conic_h = _conic.conic_h
     __main__.conic_k = _conic.conic_k
     __main__.conic_l = _conic.conic_l
 
 
-print "Created i21 bespoke commands:      usem5tth,    uselowq,    usehighq,    usedifftth"
-print "Set toolpoint mode using commands: usem5tth_tp, uselowq_tp, usehighq_tp, usedifftth_tp"
-print "Set simulation mode using command: usesim"
+print("Created i21 bespoke commands:      usem5tth,    uselowq,    usehighq,    usedifftth")
+print("Set toolpoint mode using commands: usem5tth_tp, uselowq_tp, usehighq_tp, usedifftth_tp")
+print("Set simulation mode using command: usesim")
 
 if GDA:
     from gda.jython.commands.GeneralCommands import alias  # @UnresolvedImport
@@ -485,7 +486,7 @@ if not GDA:
         
     demo = I21Demo(globals())
 else: 
-    print "DIFFCALC demo:"
+    print("DIFFCALC demo:")
     class I21Demo(object):
         
         def __init__(self, namespace):
@@ -514,10 +515,10 @@ else:
                     exec(cmd, self.namespace) 
     
         def orient(self):
-            print
-            print "-"*100
-            print 'Orientation demo'
-            print
+            print()
+            print("-"*100)
+            print('Orientation demo')
+            print()
             self.remove_test_ubcalc()
             cmd_list=[
                 'help ub',
@@ -536,10 +537,10 @@ else:
             self.executeCommand(cmd_list)
             
         def constrain(self):
-            print
-            print "-"*100
-            print 'Constraint demo'
-            print
+            print()
+            print("-"*100)
+            print('Constraint demo')
+            print()
             cmd_list=[
                 'help hkl',
                 'con(a_eq_b)',
@@ -547,10 +548,10 @@ else:
             self.executeCommand(cmd_list)
     
         def scan(self):
-            print
-            print "-"*100
-            print 'Scanning demo'
-            print
+            print()
+            print("-"*100)
+            print('Scanning demo')
+            print()
             
             cmd_list=[
                 'setnphi([0, 0, 1])',

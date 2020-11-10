@@ -64,12 +64,12 @@ class TestUBCalculationWithSixCircleGammaOnArm(object):
     @raises(DiffcalcException)
     def testNewCalculationHasNoU(self):
         self.ubcalc.start_new('testcalc')
-        print self.ubcalc.U
+        print(self.ubcalc.U)
 
     @raises(DiffcalcException)
     def testNewCalculationHasNoUB(self):
         self.ubcalc.start_new('testcalc')
-        print self.ubcalc.UB
+        print(self.ubcalc.UB)
 
 ### Lattice ###
 
@@ -96,21 +96,21 @@ class TestUBCalculationWithSixCircleGammaOnArm(object):
             # Check the UB matrix
             if sess.bmatrix is None:
                 continue
-            print "U: ", U
-            print "actual ub: ", self.ubcalc.UB.tolist()
-            print " desired b: ", sess.bmatrix
+            print("U: ", U)
+            print("actual ub: ", self.ubcalc.UB.tolist())
+            print(" desired b: ", sess.bmatrix)
             mneq_(self.ubcalc.UB, matrix(sess.bmatrix), 4,
                   note="wrong UB after manually setting U")
 
     @raises(DiffcalcException)
     def testGetUMatrix(self):
         self.ubcalc.start_new('testcalc')
-        print self.ubcalc.U
+        print(self.ubcalc.U)
 
     @raises(DiffcalcException)
     def testGetUBMatrix(self):
         self.ubcalc.start_new('testcalc')
-        print self.ubcalc.UB
+        print(self.ubcalc.UB)
 
     def testCalculateU(self):
 
@@ -131,27 +131,27 @@ class TestUBCalculationWithSixCircleGammaOnArm(object):
                 ref2.h, ref2.k, ref2.l, ref2.pos, ref2.energy, ref2.tag, t)
             self.ubcalc.calculate_UB()
             returned = self.ubcalc.U.tolist()
-            print "*Required:"
-            print sess.umatrix
-            print "*Returned:"
-            print returned
+            print("*Required:")
+            print(sess.umatrix)
+            print("*Returned:")
+            print(returned)
             mneq_(self.ubcalc.U, matrix(sess.umatrix), 4,
                   note="wrong U calulated for sess.name=" + sess.name)
 
     def test__str__(self):
         sess = scenarios.sessions()[0]
-        print "***"
-        print self.ubcalc.__str__()
+        print("***")
+        print(self.ubcalc.__str__())
 
-        print "***"
+        print("***")
         self.ubcalc.start_new('test')
-        print self.ubcalc.__str__()
+        print(self.ubcalc.__str__())
 
-        print "***"
+        print("***")
         self.ubcalc.set_lattice(sess.name, *sess.lattice)
-        print self.ubcalc.__str__()
+        print(self.ubcalc.__str__())
 
-        print "***"
+        print("***")
         ref1 = sess.ref1
         ref2 = sess.ref2
         t = sess.time
@@ -159,11 +159,11 @@ class TestUBCalculationWithSixCircleGammaOnArm(object):
             ref1.h, ref1.k, ref1.l, ref1.pos, ref1.energy, ref1.tag, t)
         self.ubcalc.add_reflection(
             ref2.h, ref2.k, ref2.l, ref2.pos, ref2.energy, ref2.tag, t)
-        print self.ubcalc.__str__()
+        print(self.ubcalc.__str__())
 
-        print "***"
+        print("***")
         self.ubcalc.calculate_UB()
-        print self.ubcalc.__str__()
+        print(self.ubcalc.__str__())
 
 
 def x_rotation(mu_or_alpha):
@@ -194,7 +194,7 @@ ROT = 29
 class TestUBCalcWithCubic(object):
 
     def setup_method(self):
-        print "TestUBCalcWithCubic.setup_method"
+        print("TestUBCalcWithCubic.setup_method")
         mock_hardware = Mock()
         mock_hardware.energyScannableMultiplierToGetKeV = 1
         mock_hardware.get_axes_names.return_value = \
@@ -288,7 +288,7 @@ class TestUBCalcWithCubicTwoRef(TestUBCalcWithCubic):
 class TestUBCalcWithcubicOneRef(TestUBCalcWithCubic):
 
     def check(self, testname, hklref, expectedUMatrix):
-        print testname
+        print(testname)
         self.addref(hklref)
         self.ubcalc.calculate_UB_from_primary_only()
         matrixeq_(expectedUMatrix, self.ubcalc.U)

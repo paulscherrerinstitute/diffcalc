@@ -39,7 +39,7 @@ class ThreeCircleI06(YouGeometry):
 
 ### Create dummy scannables ###
 if GDA:  
-    print "!!! Starting LIVE diffcalc with delta(dd2th), eta(ddth), chi(dummy) and denergy." 
+    print("!!! Starting LIVE diffcalc with delta(dd2th), eta(ddth), chi(dummy) and denergy.") 
     _threec = ScannableGroup('_threec', (dd2th, ddth, dummychi))
     delta = _threec.dd2th
     eta = _threec.ddth
@@ -71,7 +71,7 @@ if not GDA:
 from diffcalc.gdasupport.you import *  # @UnusedWildImport
  
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
  
 # Load the last ub calculation used

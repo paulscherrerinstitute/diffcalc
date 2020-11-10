@@ -286,8 +286,8 @@ class Test_calc_remaining_reference_angles_given_one():
         if psi_e is not None:
             assert_array_almost_equal(sorted([v * TODEG for v in psi_vals]), sorted(psi_e))
         for psi in psi_vals:
-            print 'psi', psi * TODEG, ' alpha:', alpha * TODEG,\
-                  ' beta:', beta * TODEG
+            print('psi', psi * TODEG, ' alpha:', alpha * TODEG,\
+                  ' beta:', beta * TODEG)
 
     def test_psi_given0(self):
         self.check('psi', 90, theta=10, tau=90, psi_e=[-90, 90],
@@ -342,10 +342,10 @@ class Test_calc_detector_angles_given_one():
 
     def check(self, name, value, theta, delta_e, nu_e, qaz_e):
         # all in deg
-        delta, nu, qaz = zip(*self.calc._calc_remaining_detector_angles(
-            name, value * TORAD, theta * TORAD))
+        delta, nu, qaz = list(zip(*self.calc._calc_remaining_detector_angles(
+            name, value * TORAD, theta * TORAD)))
         for delta_, nu_, qaz_ in zip(delta, nu, qaz):
-            print 'delta:', delta_ * TODEG, ' nu:', nu_ * TODEG, ' qaz:', qaz_ * TODEG
+            print('delta:', delta_ * TODEG, ' nu:', nu_ * TODEG, ' qaz:', qaz_ * TODEG)
         assert_array_almost_equal([v * TODEG for v in delta], delta_e)
         assert_array_almost_equal([v * TODEG for v in nu], nu_e)
         if qaz_e is not None:
@@ -401,11 +401,11 @@ class Test_calc_remaining_sample_angles_given_one():
 
     def check(self, name, value, Q_lab, n_lab, Q_phi, n_phi,
               phi_e, chi_e, eta_e, mu_e):
-        mu, eta, chi, phi = zip(*self.calc._calc_remaining_sample_angles(
-                            name, value * TORAD, Q_lab, n_lab, Q_phi, n_phi))
+        mu, eta, chi, phi = list(zip(*self.calc._calc_remaining_sample_angles(
+                            name, value * TORAD, Q_lab, n_lab, Q_phi, n_phi)))
         for  mu_, eta_, chi_, phi_ in zip(mu, eta, chi, phi):
-            print 'phi', phi_ * TODEG, ' chi:', chi_ * TODEG, ' eta:', eta_ * TODEG,\
-                  ' mu:', mu_ * TODEG
+            print('phi', phi_ * TODEG, ' chi:', chi_ * TODEG, ' eta:', eta_ * TODEG,\
+                  ' mu:', mu_ * TODEG)
         if phi_e is not None:
             assert_array_almost_equal([v * TODEG for v in phi], phi_e)
         if chi_e is not None:

@@ -41,8 +41,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Diffcalc'
-copyright = u'2017-%s, Diamond Light Source' % time.strftime('%Y')
+project = 'Diffcalc'
+copyright = '2017-%s, Diamond Light Source' % time.strftime('%Y')
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -191,8 +191,8 @@ latex_paper_size = 'a4'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ('youmanual', 'diffcalc_user_guide.tex', u'Diffcalc User Guide',
-    u'Diamond Light Source', 'manual'),
+    ('youmanual', 'diffcalc_user_guide.tex', 'Diffcalc User Guide',
+    'Diamond Light Source', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

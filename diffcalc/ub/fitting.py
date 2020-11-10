@@ -235,7 +235,7 @@ def fit_crystal(uc, refl_list):
         from scipy.optimize import minimize
 
         ref_data = _get_refl_hkl(refl_list)
-        bounds = zip(lower, upper)
+        bounds = list(zip(lower, upper))
         res = minimize(_func_crystal,
                        start,
                        args=(uc_system, ref_data),
@@ -286,7 +286,7 @@ def fit_u_matrix(init_u, uc, refl_list):
         from scipy.optimize import minimize
 
         ref_data = _get_refl_hkl(refl_list)
-        bounds = zip(lower, upper)
+        bounds = list(zip(lower, upper))
         res = minimize(_func_orient,
                        start,
                        args=(uc, ref_data),

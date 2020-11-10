@@ -22,7 +22,7 @@ settings.energy_scannable_multiplier_to_get_KeV = ESMTGKeV
 from diffcalc.gdasupport.you import *  # @UnusedWildImport
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
 
 # Load the last ub calculation used

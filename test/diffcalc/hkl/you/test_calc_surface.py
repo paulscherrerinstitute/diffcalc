@@ -171,8 +171,8 @@ class TestUBCalculationWithWillmotStrategy_Si_5_5_12_FixedMuEta():
             HKL1[0], HKL1[1], HKL1[2], willmott_to_you_fixed_mu_eta(REF1),
             ENERGY, 'ref1', None)
         self.ubcalc.calculate_UB()
-        print "U: ", self.ubcalc.U
-        print "UB: ", self.ubcalc.UB
+        print("U: ", self.ubcalc.U)
+        print("UB: ", self.ubcalc.UB)
         matrixeq_(self.ubcalc.U, U_DIFFCALC)
 
 
@@ -311,8 +311,8 @@ class TestUBCalculationWithWillmotStrategy_Si_5_5_12_FixedMuChi():
             HKL1[0], HKL1[1], HKL1[2], willmott_to_you_fixed_mu_chi(REF1),
             ENERGY, 'ref1', None)
         self.ubcalc.calculate_UB()
-        print "U: ", self.ubcalc.U
-        print "UB: ", self.ubcalc.UB
+        print("U: ", self.ubcalc.U)
+        print("UB: ", self.ubcalc.UB)
         matrixeq_(self.ubcalc.U, U_DIFFCALC)
 
 
@@ -442,8 +442,8 @@ class TestUBCalculationWithYouStrategy_Pt531_FixedMuChi():
                                   12.39842 / Pt531_WAVELENGTH,
                                   'ref1', None)
         self.ubcalc.calculate_UB()
-        print "U: ", self.ubcalc.U
-        print "UB: ", self.ubcalc.UB
+        print("U: ", self.ubcalc.U)
+        print("UB: ", self.ubcalc.UB)
         matrixeq_(self.ubcalc.U, Pt531_U_DIFFCALC)
 
 

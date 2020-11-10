@@ -180,7 +180,7 @@ def decode_matrix(rows):
 def decode_reflist(reflist_dict, geometry, diffractometer_axes_names, multiplier):
     reflections = []
     try:
-        sorted_ref_keys = sorted(reflist_dict.keys(), key=int)
+        sorted_ref_keys = sorted(list(reflist_dict.keys()), key=int)
     except ValueError:
         logger.warning("Warning: Invalid index found in the stored list of reflections. "
                        "Please check the reflection list order.")
@@ -194,7 +194,7 @@ def decode_reflist(reflist_dict, geometry, diffractometer_axes_names, multiplier
 def decode_orientlist(orientlist_dict, geometry, diffractometer_axes_names):
     orientations = []
     try:
-        sorted_orient_keys = sorted(orientlist_dict.keys(), key=int)
+        sorted_orient_keys = sorted(list(orientlist_dict.keys()), key=int)
     except ValueError:
         logger.exception("Warning: Invalid index found in the stored list of orientations. "
                          "Please check the orientation list order.")

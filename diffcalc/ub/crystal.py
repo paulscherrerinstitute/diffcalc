@@ -181,7 +181,7 @@ class CrystalUnderTest(object):
                 return self._system, (self._a1,)
             else:
                 raise TypeError("Invalid crystal system parameter: %s" % str(self._system))
-        except ValueError, e:
+        except ValueError as e:
             raise TypeError(e.message)
 
     def _get_cell_for_system(self, system=None):
@@ -232,7 +232,7 @@ class CrystalUnderTest(object):
                 (self._a1,) = args
             else:
                 raise TypeError("Invalid crystal system parameter: %s" % str(system))
-        except ValueError, e:
+        except ValueError as e:
             raise TypeError(e.message)
         (self._a1, self._a2, self._a3,
          self._alpha1, self._alpha2, self._alpha3) = self._get_cell_for_system(system)

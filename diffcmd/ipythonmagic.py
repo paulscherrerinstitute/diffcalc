@@ -35,7 +35,7 @@ For more detailed help with diffcalc go to:
 
 # This function should be called with parameter globals()
 def define_commands(dictionary):
-    print "Ipython detected - magicing commands"
+    print("Ipython detected - magicing commands")
     magiced_names = []
     commands = hkl_commands_for_help + ub_commands_for_help  # @UndefinedVariable
     commands += [pos, scan]  # @UndefinedVariable
@@ -52,7 +52,7 @@ def define_commands(dictionary):
         command_map[f.__name__] = f
         magiced_names.append(f.__name__)
     
-    print "Magiced commands: " + ' '.join(magiced_names) 
+    print("Magiced commands: " + ' '.join(magiced_names)) 
     
     # because the functions have gone from namespace we need to override
     pythons_help = __builtins__.help
@@ -65,15 +65,15 @@ def help(s):
     """Diffcalc help for iPython
     """
     if s == '':
-        print _DEFAULT_HELP
+        print(_DEFAULT_HELP)
     elif s == 'hkl':
         # Use help injected into hkl object
-        print hkl.__doc__
+        print(hkl.__doc__)
     elif s == 'ub':
         # Use help injected into ub command
-        print command_map['ub'].__doc__
+        print(command_map['ub'].__doc__)
     elif s in command_map:
-        print "%s (diffcalc command):" %s
-        print command_map[s].__doc__
+        print("%s (diffcalc command):" %s)
+        print(command_map[s].__doc__)
     else:
         exec('pythons_help(%s)' %s)

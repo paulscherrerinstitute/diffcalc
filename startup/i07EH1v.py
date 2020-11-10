@@ -60,7 +60,7 @@ chi= settings.geometry.fixed_constraints['chi']
 from diffcalc.gdasupport.you import *  # @UnusedWildImport
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
  
 # Load the last ub calculation used
@@ -80,7 +80,7 @@ def setLimitsAndCuts():
     setmin(mu, -6.561)
     setmax(mu, 29.163)
     setcut(phi, -180.0)
-    print "Current hardware limits set to:"
+    print("Current hardware limits set to:")
     hardware()
 
 if not GDA:

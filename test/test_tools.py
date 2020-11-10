@@ -55,7 +55,7 @@ class test_assert_array_almost_equal():
         try:
             assert_array_almost_equal((1, 2, 3), (1, 2))
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], '(1, 2, 3) != (1, 2) as lengths differ')
 
     def test_wrong_value(self):
@@ -82,7 +82,7 @@ class test_assert_2darray_almost_equal():
         try:
             assert_2darray_almost_equal(((1, 2), (3, 4)), ((1, 2), (3, 4, 5)))
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0],
                 '((1, 2), (3, 4)) != ((1, 2), (3, 4, 5)) as sizes differ')
 
@@ -139,35 +139,35 @@ class test_assert_dict_almost_equal():
         try:
             assert_dict_almost_equal({'a': 1}, {'a': '1'})
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], "For key 'a', 1 != '1'")
 
     def test_wrong_int(self):
         try:
             assert_dict_almost_equal({'a': 1}, {'a': 2})
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], "For key 'a', 1 != 2")
 
     def test_wrong_float1(self):
         try:
             assert_dict_almost_equal({'a': 1.}, {'a': 2.})
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], "For key 'a', 1.0 != 2.0 within 7 places")
 
     def test_wrong_float2(self):
         try:
             assert_dict_almost_equal({'a': 1}, {'a': 2.})
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], "For key 'a', 1 != 2.0 within 7 places")
 
     def test_wrong_float3(self):
         try:
             assert_dict_almost_equal({'a': 1.}, {'a': 2})
             assert False
-        except AssertionError, e:
+        except AssertionError as e:
             eq_(e.args[0], "For key 'a', 1.0 != 2 within 7 places")
 
     def test_okay_differing_types1(self):

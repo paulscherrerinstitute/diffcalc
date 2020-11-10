@@ -55,7 +55,7 @@ from diffcalc.gdasupport.you import *  # @UnusedWildImport
 hkl.setLevel(6)
 
 if GDA:
-    print "Running in GDA --- aliasing commands"
+    print("Running in GDA --- aliasing commands")
     alias_commands(globals())
     
 lastub()  # Load the last ub calculation used

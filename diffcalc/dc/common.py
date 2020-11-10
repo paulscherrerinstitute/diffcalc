@@ -11,7 +11,7 @@ def sim(scn, hkl):
         raise TypeError()
 
     try:
-        print scn.simulateMoveTo(hkl)
+        print(scn.simulateMoveTo(hkl))
     except AttributeError:
         raise TypeError(
                 "The first argument does not support simulated moves")
